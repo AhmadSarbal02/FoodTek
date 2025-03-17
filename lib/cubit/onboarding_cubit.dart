@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../state/onboarding_cubit_state.dart';
 
-
-class OnboardingCubit extends Cubit<OnboardingState> {//from chatGPT
+class OnboardingCubit extends Cubit<OnboardingState> {
+  //from chatGPT
   OnboardingCubit() : super(OnboardingInitial());
 
   final int totalPages = 4;

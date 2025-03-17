@@ -16,16 +16,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => OnboardingCubit()),
-      ],
+      providers: [BlocProvider(create: (context) => OnboardingCubit())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
+          fontFamily: 'Inter',
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home:  SplashScreen(),
+        home: SplashScreen(),
       ),
     );
   }
