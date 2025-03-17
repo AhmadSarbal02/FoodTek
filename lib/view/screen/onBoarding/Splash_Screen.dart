@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'onBoarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,12 +18,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkIfFirstLaunch() async {
-    //   final prefs = await SharedPreferences.getInstance();
-    //   final showHome = prefs.getBool('showHome') ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    final showHome = prefs.getBool('showHome') ?? false;
 
-    //   if (!showHome) {
-    //     await prefs.setBool('showHome', true); // Save that onboarding was seen
-    //   }
+    if (!showHome) {
+      await prefs.setBool('showHome', true); // Save that onboarding was seen
+    }
 
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
@@ -44,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(color: const Color.fromRGBO(37, 174, 75, 1)),
           Positioned.fill(
             child: Image.asset(
-              "assets/pattern.png",
+              "assets/images/pattern.png",
 
               //fit: BoxFit.cover,
               // Ensures the image covers the entire screen
