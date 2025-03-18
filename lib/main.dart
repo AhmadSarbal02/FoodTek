@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodtek/view/screen/onBoarding/Splash_Screen.dart';
+import 'package:foodtek/constant/colors.dart';
+import 'package:foodtek/view/screen/Splash_Screen.dart';
 
 import 'cubit/onboarding_cubit.dart';
 
@@ -19,10 +20,10 @@ class MyApp extends StatelessWidget {
       providers: [BlocProvider(create: (context) => OnboardingCubit())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'FoodTek',
         theme: ThemeData(
           fontFamily: 'Inter',
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         ),
         home: SplashScreen(),
       ),

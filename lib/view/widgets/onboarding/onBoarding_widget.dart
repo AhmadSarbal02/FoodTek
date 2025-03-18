@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtek/constant/colors.dart';
 import '../../../responseve.dart';
 
 class OnboardingWidget extends StatelessWidget {
@@ -16,7 +17,6 @@ class OnboardingWidget extends StatelessWidget {
     super.key,
     required this.title,
     required this.description,
-
     required this.firstButtonText,
     required this.secondButtonText,
     required this.onPressedOne,
@@ -31,12 +31,10 @@ class OnboardingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-    //   padding: const EdgeInsets.all(20),
-    Column(
+    return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
-      // Ensures text is centered
+
       children: [
         // stack headre images
         Stack(
@@ -51,7 +49,6 @@ class OnboardingWidget extends StatelessWidget {
               fit: BoxFit.cover,
               // Ensures the image covers the entire screen
               color: Color.fromARGB(255, 255, 255, 255),
-              // Adjust opacity for transparency
               colorBlendMode:
                   BlendMode.modulate, // Blends color with background
             ),
@@ -71,23 +68,21 @@ class OnboardingWidget extends StatelessWidget {
         const SizedBox(height: 30),
 
         // title text
-        Container(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 69, 90, 100),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: AppColors.onBoardingtextColor,
 
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              // letterSpacing: 1.2,
-            ),
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            // letterSpacing: 1.2,
           ),
         ),
         const SizedBox(height: 15),
 
         // sub title text
-        Container(
+        SizedBox(
           height: responsiveHeight(context, 100),
           child: Text(
             description,
@@ -95,21 +90,21 @@ class OnboardingWidget extends StatelessWidget {
             softWrap: true,
             style: const TextStyle(
               fontSize: 14,
-              color: Color.fromARGB(255, 69, 90, 100),
+              color: AppColors.onBoardingtextColor,
               height: 1.5,
             ),
           ),
         ),
 
         SizedBox(height: responsiveHeight(context, 30)),
+
         // button one
         Container(
           width: responsiveWidth(context, 307),
           height: responsiveHeight(context, 58),
-          //   padding: EdgeInsets.symmetric(vertical: 14),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF25AE4B), Color(0xFF0F481F)],
+              colors: [AppColors.primaryColor, AppColors.secondaryColor],
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
             ),
@@ -126,7 +121,6 @@ class OnboardingWidget extends StatelessWidget {
             ),
             child: Text(
               firstButtonText,
-
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -141,7 +135,7 @@ class OnboardingWidget extends StatelessWidget {
         // button two
         Visibility(
           visible: isVisible,
-          child: Container(
+          child: SizedBox(
             width: responsiveWidth(context, 307),
             height: responsiveHeight(context, 58),
             child: ElevatedButton(

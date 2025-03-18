@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:foodtek/constant/colors.dart';
+import 'package:foodtek/view/screen/onBoarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'onBoarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -42,12 +43,12 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         children: [
           // Background color
-          Container(color: const Color.fromRGBO(37, 174, 75, 1)),
+          Container(color: AppColors.primaryColor),
           Positioned.fill(
             child: Image.asset(
               "assets/images/pattern.png",
 
-              //fit: BoxFit.cover,
+              fit: BoxFit.cover,
               // Ensures the image covers the entire screen
               color: const Color.fromARGB(255, 26, 92, 45),
               // Adjust opacity for transparency
@@ -57,13 +58,8 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Center(
             child: Image.asset(
-              "assets/foodtek-logo.png",
+              "assets/images/foodtek-logo.png",
               fit: BoxFit.cover,
-              // Ensures the image covers the entire screen
-              // color: const Color.fromARGB(255, 26, 92, 45),
-              // Adjust opacity for transparency
-              // colorBlendMode:
-              //     BlendMode.modulate, // Blends color with background
             ),
           ),
         ],
