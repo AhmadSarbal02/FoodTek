@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/constant/colors.dart';
+import 'package:foodtek/cubit/auth/login_cubit.dart';
 import 'package:foodtek/view/screen/Splash_Screen.dart';
 
 import 'cubit/onboarding_cubit.dart';
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => OnboardingCubit())],
+      providers: [
+        BlocProvider(create: (context) => OnboardingCubit()),
+        BlocProvider(create: (context) => LoginCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'FoodTek',

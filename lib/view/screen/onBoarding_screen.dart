@@ -4,6 +4,7 @@ import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/constant/onboarding-data.dart';
 import 'package:foodtek/cubit/onboarding_cubit.dart';
 import 'package:foodtek/state/onboarding_cubit_state.dart';
+import 'package:foodtek/view/screen/auth/login.dart';
 import 'package:foodtek/view/screen/home/home_page.dart';
 
 import 'package:foodtek/view/widgets/onboarding/onBoarding_widget.dart';
@@ -82,7 +83,9 @@ class OnboardingScreen extends StatelessWidget {
                         context.read<OnboardingCubit>().completeOnboarding();
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
                         );
                       },
                       child: Text(
