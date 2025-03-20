@@ -4,6 +4,7 @@ import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/cubit/auth/login_cubit.dart';
 import 'package:foodtek/responseve.dart';
 import 'package:foodtek/state/auth/login_state.dart';
+import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
 import 'package:foodtek/view/screen/auth/sign_up_screen.dart';
 import 'package:foodtek/view/screen/home/home_page.dart';
 import 'package:foodtek/view/widgets/auth/custom_foodtek_logo_widget.dart';
@@ -139,6 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     controller: _emailController,
                                     label: "Email",
                                     hintText: 'example@email.com',
+                                    type: TextInputType.emailAddress, obscure: false,
                                   ),
 
                                   // حقل كلمة المرور
@@ -146,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   CustomTextFelidWidget(
                                     controller: _passwordController,
                                     label: "Password",
-                                    hintText: '••••••••',
+                                    hintText: '*******',
                                     suffixIcon: IconButton(
                                       icon: Icon(
                                         _obscurePassword
@@ -160,6 +162,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         });
                                       },
                                     ),
+                                    type: TextInputType.text,
+                                    obscure: _obscurePassword,
                                   ),
 
                                   // تذكرني ونسيت كلمة المرور
@@ -203,6 +207,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           // التنقل إلى صفحة نسيت كلمة المرور
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => ForgotPwScreen(),
+                                            ),
+                                          );
                                         },
                                         child: Text(
                                           'Forgot Password ?',

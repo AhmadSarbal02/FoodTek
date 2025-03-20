@@ -4,12 +4,15 @@ class CustomTextFelidWidget extends StatelessWidget {
   TextEditingController? controller;
   String label, hintText;
   Widget? suffixIcon;
+  final TextInputType type;
+  final bool obscure;
+
   CustomTextFelidWidget({
     super.key,
     required this.controller,
     required this.hintText,
     required this.label,
-    this.suffixIcon,
+    this.suffixIcon, required this.type, required this.obscure,
   });
 
   @override
@@ -21,8 +24,8 @@ class CustomTextFelidWidget extends StatelessWidget {
         SizedBox(height: 8),
         TextField(
           controller: controller,
-          keyboardType: TextInputType.emailAddress,
-
+          keyboardType: type,
+          obscureText:obscure,
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon ?? SizedBox(),
