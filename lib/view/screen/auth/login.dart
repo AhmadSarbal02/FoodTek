@@ -30,23 +30,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return
-    //  BlocProvider(
-    //   create: (context) => LoginCubit(),
-    //   child: BlocConsumer<LoginCubit, LoginState>(
-    //     listener: (context, state) {
-    //       if (state is LoginSuccess) {
-    //         Navigator.pushReplacement(
-    //           context,
-    //           MaterialPageRoute(builder: (context) => HomePage()),
-    //         );
-    //       } else if (state is LoginError) {
-    //         ScaffoldMessenger.of(
-    //           context,
-    //         ).showSnackBar(SnackBar(content: Text(state.message)));
-    //       }
-    //     },
-    //     builder: (context, state) {
     return ReusableScaffold(
       child: SingleChildScrollView(
         child: Column(

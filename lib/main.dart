@@ -4,6 +4,7 @@ import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/cubit/auth/login_cubit.dart';
 import 'package:foodtek/view/screen/Splash_Screen.dart';
 import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
+import 'package:foodtek/view/screen/auth/OTP/reset_password_screen.dart';
 
 import 'cubit/onboarding_cubit.dart';
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         ),
         home: SplashScreen(),
-        //home: ForgotPwScreen(),
+        //main_screens: ForgotPwScreen(),
       ),
     );
   }
