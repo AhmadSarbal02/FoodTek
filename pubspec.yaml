@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.5.2
   smooth_page_indicator: ^1.2.1
   lottie: ^3.3.1
+  flutter_otp_text_field: ^1.5.1+1
 
 dev_dependencies:
   flutter_test:

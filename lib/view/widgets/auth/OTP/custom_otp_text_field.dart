@@ -1,51 +1,17 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-//
-// class CustomOtpTextField extends StatelessWidget {
-//   const CustomOtpTextField({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     final textController = TextEditingController();
-//
-//     return SizedBox(
-//       height: 50.5,
-//       width: 46,
-//       child: TextFormField(
-//         decoration: InputDecoration(hintText: '0'),
-//         onSaved: (newValue) {
-//
-//         },
-//         onChanged: (value) {
-//           if (value.length == 1) {
-//             FocusScope.of(context).nextFocus();
-//           }
-//         },
-//         controller: textController,
-//         style: Theme.of(context).textTheme.headlineSmall,
-//         keyboardType: TextInputType.number,
-//         textAlign: TextAlign.center,
-//         inputFormatters: [
-//           LengthLimitingTextInputFormatter(1),
-//           FilteringTextInputFormatter.digitsOnly,
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:foodtek/constant/colors.dart';
 
+// ignore: must_be_immutable
 class CustomOtpTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final FocusNode focusNode;
-  final FocusNode? nextFocusNode;
+  void Function(String)? onSubmit;
 
-  const CustomOtpTextField({
+  CustomOtpTextField({
     super.key,
-    required this.controller,
-    required this.focusNode,
-    this.nextFocusNode,
+    this.onSubmit,
+    // required this.controller,
+    // required this.focusNode,
+    // this.nextFocusNode,
   });
 
   @override
@@ -53,27 +19,31 @@ class CustomOtpTextField extends StatelessWidget {
     return SizedBox(
       height: 50.5,
       width: 46,
-      child: TextFormField(
-        controller: controller,
-        focusNode: focusNode,
-        decoration: const InputDecoration(
-          hintText: '.',
-          border: OutlineInputBorder(),
-        ),
-        style: Theme.of(context).textTheme.headlineSmall,
-        keyboardType: TextInputType.number,
-        textAlign: TextAlign.center,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(1),
-          FilteringTextInputFormatter.digitsOnly,
-        ],
-        onChanged: (value) {
-          if (value.isNotEmpty) {
-            nextFocusNode?.requestFocus(); // Move to next field
-          } else {
-            focusNode.previousFocus(); // Move back if empty
-          }
+      child: OtpTextField(
+        numberOfFields: 4,
+        margin: EdgeInsets.symmetric(horizontal: 8),
+        // borderColor: AppColors.primaryColor,
+        cursorColor: AppColors.primaryColor,
+        focusedBorderColor: AppColors.primaryColor,
+        //set to true to show as box or false to show as dash
+        showFieldAsBox: true,
+        //runs when a code is typed in
+        onCodeChanged: (String code) {
+          //handle validation or checks here
         },
+        //runs when every textfield is filled
+        onSubmit: (String verificationCode) {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Verification Code"),
+                content: Text('Code entered is $verificationCode'),
+              );
+            },
+          );
+          onSubmit;
+        }, // end onSubmit
       ),
     );
   }

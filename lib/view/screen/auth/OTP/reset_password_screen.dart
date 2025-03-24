@@ -27,10 +27,18 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             CustomFoodtekLogoWidget(),
             const SizedBox(height: 15),
             CustomAuthCard(
+              arrowIcon: true,
               title: "Reset Password",
               titleAlign: TextAlign.start,
               description: "Want to try with my current password?",
+              descriptionword: " Login",
               descriptionAlign: TextAlign.start,
+              descriptionWordOnTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
               backTo: '',
               login: '',
               page: '',

@@ -12,7 +12,9 @@ class CustomTextFelidWidget extends StatelessWidget {
     required this.controller,
     required this.hintText,
     required this.label,
-    this.suffixIcon, required this.type, required this.obscure,
+    this.suffixIcon,
+    required this.type,
+    required this.obscure,
   });
 
   @override
@@ -25,7 +27,7 @@ class CustomTextFelidWidget extends StatelessWidget {
         TextField(
           controller: controller,
           keyboardType: type,
-          obscureText:obscure,
+          obscureText: obscure,
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon ?? SizedBox(),
@@ -47,6 +49,7 @@ class CustomTextFelidWidget extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 15),
       ],
     );
   }
