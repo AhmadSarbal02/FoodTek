@@ -6,13 +6,14 @@ class CustomTextFelidWidget extends StatelessWidget {
   Widget? suffixIcon;
   final TextInputType type;
   final bool obscure;
+  final String? errorText;
 
   CustomTextFelidWidget({
     super.key,
     required this.controller,
     required this.hintText,
     required this.label,
-    this.suffixIcon, required this.type, required this.obscure,
+    this.suffixIcon, required this.type, required this.obscure, this.errorText,
   });
 
   @override
@@ -29,7 +30,7 @@ class CustomTextFelidWidget extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: suffixIcon ?? SizedBox(),
-
+            errorText: errorText,
             filled: true,
             fillColor: Colors.grey[100],
             contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),

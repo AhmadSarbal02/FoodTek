@@ -30,6 +30,7 @@ class ForgotPwScreen extends StatelessWidget {
               descriptionAlign: TextAlign.center,
               children: [
                 CustomTextFelidWidget(
+
                   controller: _emailController,
                   label: "Email",
                   hintText: "example@email.com", type: TextInputType.emailAddress, obscure: false,

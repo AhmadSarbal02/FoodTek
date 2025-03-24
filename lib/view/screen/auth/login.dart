@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/cubit/auth/login_cubit.dart';
-import 'package:foodtek/responseve.dart';
 import 'package:foodtek/state/auth/login_state.dart';
 import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
 import 'package:foodtek/view/screen/auth/sign_up_screen.dart';
-import 'package:foodtek/view/screen/home/home_page.dart';
 import 'package:foodtek/view/widgets/auth/custom_foodtek_logo_widget.dart';
 import 'package:foodtek/view/widgets/auth/custom_social_login_button.dart';
 import 'package:foodtek/view/widgets/auth/custom_text_felid_widget.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
+import '../main_screens/main_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);

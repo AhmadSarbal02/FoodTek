@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/view/screen/onBoarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'home/home_page.dart';
+import 'main_screens/main_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

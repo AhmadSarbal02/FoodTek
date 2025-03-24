@@ -44,14 +44,7 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        // just a check can be removed
-        onPressed: () {
-          print("Entered OTP: ${getOtp()}");
-        },
-        child: const Icon(Icons.check),
-      ),
-      backgroundColor: AppColors.primaryColor.withOpacity(.8),
+      backgroundColor: AppColors.primaryColor.withOpacity(.85),
       body: Stack(
         children: [
           /// Full-Screen Background Image
