@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
 import 'package:foodtek/view/screen/auth/sign_up_screen.dart';
+import 'package:foodtek/view/screen/main_screens/home/home_screen.dart';
+import 'package:foodtek/view/screen/main_screens/main_page.dart';
 import 'package:foodtek/view/widgets/auth/OTP/custom_auth_card.dart';
 import 'package:foodtek/view/widgets/auth/OTP/reusable_scaffold.dart';
 import 'package:foodtek/view/widgets/auth/custom_foodtek_logo_widget.dart';
@@ -161,6 +163,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         //         _rememberMe,
                         //       );
                         //     };
+
+                        // just to check if the location is saved in the SharedPreferences
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainPage()),
+                        );
                       },
                     ),
 

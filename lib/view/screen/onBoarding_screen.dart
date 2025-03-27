@@ -6,6 +6,9 @@ import 'package:foodtek/cubit/onboarding_cubit.dart';
 import 'package:foodtek/state/onboarding_cubit_state.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
 import 'package:foodtek/view/widgets/onboarding/onBoarding_widget.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -44,14 +47,22 @@ class OnboardingScreen extends StatelessWidget {
                 title: onboardingTitles[index],
                 description: onboardingDescriptions[index],
                 firstButtonText: firstButtonTexts[index],
-                onPressedOne: () {
-                  if (isLastPage) {// so it navigates to the login screen
+                onPressedOne: () async {
+                  if (isLastPage) {
                     context.read<OnboardingCubit>().completeOnboarding();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    _determinePosition().then(
+                      // calles the method to git the location and then it goes to the login screen
+                      await Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginScreen()),
+                      ),
                     );
-                  } else {// else it continues to the next screen
+                    // Future.delayed(const Duration(seconds: 3), () {
+                    //   // so it navigates to the login screen
+                    //
+                    // });
+                  } else {
+                    // else it continues to the next screen
                     pageController.nextPage(
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,
@@ -60,6 +71,7 @@ class OnboardingScreen extends StatelessWidget {
                 },
                 secondButtonText: secondButtonTexts[index],
                 onPressedTwo: () {
+                  LocationPermission.denied; // does not get the location
                   context.read<OnboardingCubit>().completeOnboarding();
                   Navigator.pushReplacement(
                     context,
@@ -140,5 +152,48 @@ class OnboardingScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<Position> _determinePosition() async {
+    // the method to show the permission and git the user location
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied.');
+    }
+
+    Position position = await Geolocator.getCurrentPosition();
+
+    // Reverse geocoding to get the address
+    List<Placemark> placeMarks = await placemarkFromCoordinates(
+      position.latitude,
+      position.longitude,
+    );
+    Placemark placeMark = placeMarks[0]; // Take the first result
+
+    String address = // to return the address with the listed
+        '${placeMark.street}, ${placeMark.subLocality}, ${placeMark.locality}, ${placeMark.country}';
+
+    // Save the address in SharedPreferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('address', address);
+    prefs.setDouble('latitude', position.latitude);
+    prefs.setDouble('longitude', position.longitude);
+
+    return position;
   }
 }

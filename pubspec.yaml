@@ -39,6 +39,9 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   lottie: ^3.3.1
   flutter_otp_text_field: ^1.5.1+1
+  carousel_slider: ^5.0.0
+  geolocator: ^13.0.3
+  geocoding: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +70,11 @@ flutter:
      - assets/images/
      - assets/images/onboarding/
      - assets/images/auth/
+     - assets/images/mainPage/
+     - assets/images/mainPage/home_page_images/
+     - assets/images/mainPage/home_page_images/recommend_images/
+     - assets/images/mainPage/home_page_images/top_list_images/
+     - assets/images/mainPage/home_page_images/top_rated_list_images/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

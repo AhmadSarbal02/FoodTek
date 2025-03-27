@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
         context,
         MaterialPageRoute(
           //builder: (context) => OnboardingScreen(),
-           builder: (context) => showHome ? HomePage() : OnboardingScreen(),
+          builder: (context) => showHome ? MainPage() : OnboardingScreen(),
         ),
       );
     });

@@ -13,7 +13,7 @@ class CustomAuthCard extends StatelessWidget {
   final List<Widget> children;
   final void Function()? descriptionWordOnTap;
   final TextAlign titleAlign, descriptionAlign;
-  final bool? arrowIcon;
+  final bool arrowIcon;
 
   CustomAuthCard({
     super.key,
@@ -55,7 +55,7 @@ class CustomAuthCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  arrowIcon!
+                  arrowIcon
                       ? IconButton(
                         // back arrow
                         onPressed: () => Navigator.pop(context),
@@ -94,7 +94,7 @@ class CustomAuthCard extends StatelessWidget {
                 ),
               ),
               if (description != null) ...[
-                // the descreption under it
+                // the description under it
                 const SizedBox(height: 10),
                 SizedBox(
                   width: responsiveWidth(context, 295),

@@ -9,6 +9,7 @@ import '../../../widgets/auth/foodtek_button.dart';
 
 class OtpScreen extends StatefulWidget {
   final VoidCallback? onPressed;
+
   OtpScreen({super.key, required this.onPressed});
 
   @override
@@ -74,7 +75,21 @@ class _OtpScreenState extends State<OtpScreen> {
                       /// Submit Button
                       FoodtekButton(
                         text: "Verify",
-                        onPressed: widget.onPressed ?? () {},
+                        onPressed: () {
+                          if (widget.onPressed != null) {
+                            widget.onPressed!(); // Call the passed function
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResetPasswordScreen(),
+                              ),
+                            );
+                          }
+                        },
+                        // widget.onPressed ?? () {
+                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordScreen(),));
+                        // },
                       ),
                     ],
                   ),
