@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtek/view/screen/auth/OTP/reset_password_screen.dart';
 import 'package:foodtek/view/widgets/auth/OTP/reusable_scaffold.dart';
 import '../../../../responseve.dart';
 import '../../../widgets/auth/custom_foodtek_logo_widget.dart';
@@ -73,7 +74,21 @@ class _OtpScreenState extends State<OtpScreen> {
                       /// Submit Button
                       FoodtekButton(
                         text: "Verify",
-                        onPressed: widget.onPressed ?? () {},
+                        onPressed: () {
+                          if (widget.onPressed != null) {
+                            widget.onPressed!(); // Call the passed function
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResetPasswordScreen(),
+                              ),
+                            );
+                          }
+                        },
+                        // widget.onPressed ?? () {
+                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => ResetPasswordScreen(),));
+                        // },
                       ),
                     ],
                   ),

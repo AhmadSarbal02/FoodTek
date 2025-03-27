@@ -27,8 +27,6 @@ class ResetPasswordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<ResetPasswordCubit>();
-
     return BlocListener<ResetPasswordCubit, ResetPasswordState>(
       listener: (context, state) {
         if (state is ResetPasswordSuccess) {
@@ -88,6 +86,7 @@ class ResetPasswordView extends StatelessWidget {
               const SizedBox(height: 15),
               BlocBuilder<ResetPasswordCubit, ResetPasswordState>(
                 builder: (context, state) {
+                  final cubit = context.read<ResetPasswordCubit>();
                   String? passwordError;
                   String? confirmPasswordError;
 
@@ -104,7 +103,9 @@ class ResetPasswordView extends StatelessWidget {
                     backTo: '',
                     login: '',
                     page: '',
-                    arrowIcon: null,
+                    descriptionword: '',// this was the problem
+                    descriptionWordOnTap: null,// or this
+                    arrowIcon: true,
                     children: [
                       Column(
                         children: [

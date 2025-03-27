@@ -1,92 +1,106 @@
 import 'package:flutter/material.dart';
-import 'package:foodtek/view/screen/main_screens/profile/profile_screen.dart';
+import '../../../constant/colors.dart';
+import '../../../constant/main_screen/main_screen_data.dart';
+import '../../widgets/main_page_widgets/tap_button.dart';
 
-import 'cart/cart_screen.dart';
-import 'favorites/favorites_screen.dart';
-import 'history/history_screen.dart';
-import 'home/home_screen.dart';
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
+class _MainPageState extends State<MainPage> {
+  int selectedTab = 0;
   final PageController _pageController = PageController();
+
+  void _onTabSelected(int index) {
+    setState(() {
+      selectedTab = index;
+    });
+    _pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed, // Keep background consistent
-        elevation: 10,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.black54,
-        showUnselectedLabels: true,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-        unselectedLabelStyle: const TextStyle(color: Colors.black54),
-        currentIndex: selectedIndex,
-        onTap: (index) {
-          setState(() => selectedIndex = index);
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeInOut,
-          );
-        },
-        items: [
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home, color: Colors.green),
-            label: 'Home',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            activeIcon: Icon(Icons.favorite, color: Colors.green),
-            label: 'Favorites',
-          ),
-          BottomNavigationBarItem(
-            icon: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: selectedIndex == 2 ? Colors.green : Colors.transparent,
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                color: selectedIndex == 2 ? Colors.white : Colors.black54,
-              ),
-            ),
-            label: '',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.history_toggle_off),
-            activeIcon: Icon(Icons.history, color: Colors.green),
-            label: 'History',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person, color: Colors.green),
-            label: 'Profile',
-          ),
-        ],
-      ),
-      appBar: AppBar(),
+      resizeToAvoidBottomInset: false,
+      //so the floatingActionButton stays contestant
+      backgroundColor: const Color(0xfff5f5f5),
       body: PageView(
         controller: _pageController,
+        physics: const BouncingScrollPhysics(), // the animation of the sliding
         onPageChanged: (index) {
-          setState(() => selectedIndex = index);
+          setState(() => selectedTab = index);
         },
-        children: const [
-          HomeScreen(),
-          FavoritesScreen(),
-          CartScreen(),
-          HistoryScreen(),
-          ProfileScreen(),
-        ],
+        children: pages,
+      ),
+      floatingActionButtonLocation: // the middle cart button
+          FloatingActionButtonLocation.miniCenterDocked,
+      floatingActionButton: SizedBox(
+        width: 60,
+        height: 60,
+        child: FloatingActionButton(
+          onPressed: () => _onTabSelected(2),
+          shape: const CircleBorder(),
+          backgroundColor:
+              selectedTab == 2
+                  ? AppColors.primaryColor
+                  : AppColors.primaryColor,
+          child: Image.asset(
+            bottomNavImages[2], // Cart icon only
+            width: 30,
+            height: 30,
+            color: selectedTab == 2 ? Colors.grey : Colors.white,
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        // surfaceTintColor: Colors.white,
+        // shadowColor: Colors.black,
+        elevation: 1,
+        notchMargin: 12,
+        height: 64,
+
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TabButton(
+                // the button
+                title: bottomNavLabels[0],
+                icon: bottomNavImages[0],
+                onTap: () => _onTabSelected(0),
+                isSelected: selectedTab == 0,
+              ),
+              TabButton(
+                title: bottomNavLabels[1],
+                icon: bottomNavImages[1],
+                onTap: () => _onTabSelected(1),
+                isSelected: selectedTab == 1,
+              ),
+              const SizedBox(width: 40, height: 40),
+              // Space for floating button
+              TabButton(
+                title: bottomNavLabels[3],
+                icon: bottomNavImages[3],
+                onTap: () => _onTabSelected(3),
+                isSelected: selectedTab == 3,
+              ),
+              TabButton(
+                title: bottomNavLabels[4],
+                icon: bottomNavImages[4],
+                onTap: () => _onTabSelected(4),
+                isSelected: selectedTab == 4,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

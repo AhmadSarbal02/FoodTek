@@ -5,10 +5,11 @@ import '../../state/auth/reset_password_state.dart';
 
 
 class ResetPasswordCubit extends Cubit<ResetPasswordState> {
-  ResetPasswordCubit() : super(ResetPasswordInitial());
-
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  ResetPasswordCubit() : super(ResetPasswordInitial());
+
+
 
   void resetPassword() {
     String password = passwordController.text.trim();
