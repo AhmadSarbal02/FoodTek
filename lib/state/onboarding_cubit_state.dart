@@ -9,4 +9,12 @@ class OnboardingPageChanged extends OnboardingState {
   OnboardingPageChanged(this.currentPage, this.isLastPage);
 }
 
+class InternetCheckOnState extends OnboardingState {
+  final bool isConnected;
+
+  InternetCheckOnState({required this.isConnected});
+}
+
+class InternetCheckOffState extends OnboardingState {}
+
 class OnboardingCompleted extends OnboardingState {}

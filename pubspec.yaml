@@ -39,6 +39,8 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   lottie: ^3.3.1
   flutter_otp_text_field: ^1.5.1+1
+  geolocator: ^13.0.3
+  internet_connection_checker_plus: ^2.7.1
 
 dev_dependencies:
   flutter_test:

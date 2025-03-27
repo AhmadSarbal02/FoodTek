@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/constant/colors.dart';
+
 import 'package:foodtek/cubit/auth/login_cubit.dart';
+import 'package:foodtek/cubit/auth/sign_up_cubit.dart';
 import 'package:foodtek/view/screen/Splash_Screen.dart';
-import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
-import 'package:foodtek/view/screen/auth/OTP/reset_password_screen.dart';
 
 import 'cubit/onboarding_cubit.dart';
 
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => OnboardingCubit()),
         BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider(create: (context) => SignUpCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,7 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/constant/colors.dart';
+
+import 'package:foodtek/core/functions/check_internt.dart';
+import 'package:foodtek/cubit/onboarding_cubit.dart';
+import 'package:foodtek/view/screen/no_internet_screen.dart';
 import 'package:foodtek/view/screen/onBoarding_screen.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'main_screens/main_page.dart';
 
@@ -15,8 +21,9 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    super.initState();
+    // isInternetAvailable();
     _checkIfFirstLaunch();
+    super.initState();
   }
 
   Future<void> _checkIfFirstLaunch() async {
@@ -27,14 +34,25 @@ class _SplashScreenState extends State<SplashScreen> {
       await prefs.setBool('showHome', true); // Save that onboarding was seen
     }
 
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          //builder: (context) => OnboardingScreen(),
-           builder: (context) => showHome ? HomePage() : OnboardingScreen(),
-        ),
-      );
+    Future.delayed(const Duration(seconds: 3), () async {
+      bool isconected = await isInternetAvailable();
+      if (isconected) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            //builder: (context) => OnboardingScreen(),
+            builder: (context) => showHome ? HomePage() : OnboardingScreen(),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            //builder: (context) => OnboardingScreen(),
+            builder: (context) => NoInternetScreen(),
+          ),
+        );
+      }
     });
   }
 

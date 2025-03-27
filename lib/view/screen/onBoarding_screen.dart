@@ -44,14 +44,17 @@ class OnboardingScreen extends StatelessWidget {
                 title: onboardingTitles[index],
                 description: onboardingDescriptions[index],
                 firstButtonText: firstButtonTexts[index],
-                onPressedOne: () {
-                  if (isLastPage) {// so it navigates to the login screen
+                onPressedOne: () async {
+                  if (isLastPage) {
+                    await context.read<OnboardingCubit>().locationPermission();
+                    // so it navigates to the login screen
                     context.read<OnboardingCubit>().completeOnboarding();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => LoginScreen()),
                     );
-                  } else {// else it continues to the next screen
+                  } else {
+                    // else it continues to the next screen
                     pageController.nextPage(
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOut,

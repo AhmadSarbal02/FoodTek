@@ -23,6 +23,8 @@ class ResetPasswordScreen extends StatelessWidget {
 }
 
 class ResetPasswordView extends StatelessWidget {
+  const ResetPasswordView({super.key});
+
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ResetPasswordCubit>();

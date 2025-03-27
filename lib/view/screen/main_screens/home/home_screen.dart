@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodtek/view/screen/Splash_Screen.dart';
 import 'package:foodtek/view/screen/onBoarding_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => OnboardingScreen()),
+              MaterialPageRoute(builder: (context) => SplashScreen()),
             );
           },
           child: Text("Go to the OnBoarding Screen"),

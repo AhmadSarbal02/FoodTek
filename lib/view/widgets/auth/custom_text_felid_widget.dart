@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CustomTextFelidWidget extends StatelessWidget {
+  
+
   TextEditingController? controller;
   String label, hintText;
   Widget? suffixIcon;
   final TextInputType type;
   final bool obscure;
   final String? errorText;
+  FormFieldValidator<String>? validator;
 
   CustomTextFelidWidget({
     super.key,
@@ -17,6 +21,7 @@ class CustomTextFelidWidget extends StatelessWidget {
     required this.type,
     required this.obscure,
     this.errorText,
+    this.validator, 
   });
 
   @override
@@ -26,7 +31,9 @@ class CustomTextFelidWidget extends StatelessWidget {
       children: [
         Text(label, style: TextStyle(color: Colors.grey[700], fontSize: 14)),
         SizedBox(height: 8),
-        TextField(
+        TextFormField( 
+          validator: validator,
+          forceErrorText: errorText,
           controller: controller,
           keyboardType: type,
           obscureText: obscure,

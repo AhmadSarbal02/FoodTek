@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../constant/colors.dart';
+import 'package:foodtek/constant/colors.dart';
 
 class ReusableScaffold extends StatelessWidget {
   final Widget child;
@@ -22,10 +22,7 @@ class ReusableScaffold extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: child,
-          ),
+          SizedBox(height: MediaQuery.of(context).size.height, child: child),
         ],
       ),
     );

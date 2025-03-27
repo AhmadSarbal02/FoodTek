@@ -8,7 +8,7 @@ import '../../../widgets/auth/custom_text_felid_widget.dart';
 import '../../../widgets/auth/foodtek_button.dart';
 
 class ForgotPwScreen extends StatelessWidget {
-  TextEditingController? _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   ForgotPwScreen({super.key});
 
   @override
@@ -33,7 +33,6 @@ class ForgotPwScreen extends StatelessWidget {
               descriptionAlign: TextAlign.center,
               children: [
                 CustomTextFelidWidget(
-
                   controller: _emailController,
                   label: "Email",
                   hintText: "example@email.com",

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
+
 import 'package:foodtek/responseve.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
 
@@ -15,7 +16,7 @@ class CustomAuthCard extends StatelessWidget {
   final TextAlign titleAlign, descriptionAlign;
   final bool? arrowIcon;
 
-  CustomAuthCard({
+  const CustomAuthCard({
     super.key,
     required this.title,
     this.description,

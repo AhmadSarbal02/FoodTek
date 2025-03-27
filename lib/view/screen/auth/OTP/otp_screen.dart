@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodtek/view/screen/auth/OTP/reset_password_screen.dart';
 import 'package:foodtek/view/widgets/auth/OTP/reusable_scaffold.dart';
-import '../../../../constant/colors.dart';
 import '../../../../responseve.dart';
 import '../../../widgets/auth/custom_foodtek_logo_widget.dart';
 import '../../../widgets/auth/OTP/custom_otp_text_field.dart';
@@ -9,7 +7,7 @@ import '../../../widgets/auth/foodtek_button.dart';
 
 class OtpScreen extends StatefulWidget {
   final VoidCallback? onPressed;
-  OtpScreen({super.key, required this.onPressed});
+  const OtpScreen({super.key, required this.onPressed});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -33,6 +31,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   borderRadius: BorderRadius.circular(12),
                   boxShadow: [
                     BoxShadow(
+                      // ignore: deprecated_member_use
                       color: Colors.black.withOpacity(0.1),
                       blurRadius: 6,
                       spreadRadius: 2,

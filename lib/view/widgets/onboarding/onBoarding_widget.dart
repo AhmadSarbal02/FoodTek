@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
+
 import '../../../responseve.dart';
 
 class OnboardingWidget extends StatelessWidget {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/main_screens/profile/profile_screen.dart';
-import 'package:foodtek/view/screen/onBoarding_screen.dart';
 
 import 'cart/cart_screen.dart';
 import 'favorites/favorites_screen.dart';
