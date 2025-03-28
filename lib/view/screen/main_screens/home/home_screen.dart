@@ -16,23 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // to load the address
-  //the current location of teh user
-  // String? address;
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadAddress();
-  // }
-  //
-  // Future<void> _loadAddress() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     address = prefs.getString('address');
-  //   });
-  // }
-
   String? selectedCategory; // Null means nothing is selected
   TextEditingController txtSearch = TextEditingController();
 
@@ -51,214 +34,49 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.symmetric(vertical: 20),
           child: Column(
             children: [
-              // const SizedBox(height: 20),
-              // // Location & Notification Row
-              // Row(
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.symmetric(horizontal: 5),
-              //       child: IconButton(
-              //         onPressed: () {},
-              //         icon: Image.asset(
-              //           "assets/images/mainPage/location.png",
-              //           width: 34,
-              //           height: 34,
-              //         ),
-              //       ),
-              //     ),
-              //     const SizedBox(height: 20),
-              //     InkWell(
-              //       onTap: () {},
-              //       child: Padding(
-              //         padding: const EdgeInsets.symmetric(horizontal: 20),
-              //         child: Column(
-              //           crossAxisAlignment: CrossAxisAlignment.start,
-              //           children: [
-              //             Text(
-              //               "Delivering to",
-              //               style: TextStyle(
-              //                 color: AppColors.onBoardingtextColor,
-              //                 fontSize: 11,
-              //               ),
-              //             ),
-              //             const SizedBox(height: 6),
-              //             Row(
-              //               mainAxisAlignment: MainAxisAlignment.start,
-              //               children: [
-              //                 address == null
-              //                     ? Text(
-              //                       "Current Location",
-              //                       style: TextStyle(
-              //                         color: AppColors.onBoardingtextColor,
-              //                         fontSize: 16,
-              //                         fontWeight: FontWeight.w700,
-              //                       ),
-              //                     )
-              //                     : Text(
-              //                       '$address',
-              //                       overflow: TextOverflow.ellipsis,
-              //                       maxLines: 1,
-              //                       textAlign: TextAlign.start,
-              //                       style: TextStyle(fontSize: 10),
-              //                     ),
-              //
-              //                 const SizedBox(width: 5),
-              //                 Image.asset(
-              //                   "assets/images/mainPage/dropDownIcon.png",
-              //                   width: 18,
-              //                   height: 18,
-              //                 ),
-              //               ],
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     const Spacer(),
-              //     Padding(
-              //       padding: const EdgeInsets.symmetric(horizontal: 5),
-              //       child: IconButton(
-              //         onPressed: () => openNotificationSheet(context),
-              //         icon: Image.asset(
-              //           "assets/images/mainPage/img.png",
-              //           width: 24,
-              //           height: 24,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              //
-              // const SizedBox(height: 20),
-              //
-              // // Search Bar
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20),
-              //   child: RoundTextfield(
-              //     hintText: "Search menu, restaurant or etc",
-              //     controller: txtSearch,
-              //     left: Container(
-              //       alignment: Alignment.center,
-              //       width: 30,
-              //       child: Icon(Icons.search),
-              //     ),
-              //     right: IconButton(
-              //       onPressed: () {
-              //         Navigator.push(
-              //           context,
-              //           MaterialPageRoute(builder: (context) => FilterScreen()),
-              //         );
-              //       },
-              //       icon: Image.asset(
-              //         'assets/images/mainPage/filterIcon.png',
-              //         width: 18,
-              //         height: 18,
-              //       ),
-              //
-              //       alignment: Alignment.center,
-              //     ),
-              //   ),
-              // ),
               LocationNotificationSrearch(showSearchBar: true),
-              // load the location widget
               const SizedBox(height: 15),
 
-              // Show Tabs Only If a Category is Selected
-              if (selectedCategory != null) ...[
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.85,
-                  //padding: EdgeInsets.all(16),
-                  child: DefaultTabController(
-                    length: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Back Button
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                selectedCategory =
-                                    null; // Reset to show main UI
-                              });
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(Icons.arrow_back, color: Colors.black),
-                                // Text("Back", style: TextStyle(color: Colors.black, fontSize: 16)),
-                              ],
-                            ),
+              // Always show category list
+              SizedBox(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: categories.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedCategory = categories[index] == "All" ? null : categories[index];
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        margin: EdgeInsets.symmetric(horizontal: 5),
+                        decoration: BoxDecoration(
+                          color: selectedCategory == categories[index] ||
+                              (categories[index] == "All" && selectedCategory == null)
+                              ? Colors.orange[200] // Highlight selected
+                              : Colors.grey[200],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Center(
+                          child: Text(
+                            categories[index],
+                            style: TextStyle(color: Colors.black),
                           ),
                         ),
-
-                        Expanded(
-                          // shows the items
-                          child: TabBarView(
-                            physics: NeverScrollableScrollPhysics(),
-
-                            children:
-                                categories.map((category) {
-                                  // List<Category> filteredItems =
-                                  //     category
-                                  selectedCategory == "All"
-                                      ? allItems
-                                      : allItems
-                                          .where(
-                                            (item) =>
-                                                item.title.contains(category),
-                                          )
-                                          .toList();
-
-                                  return ItemScreen(
-                                    categoryItems: filteredItems,
-                                  );
-                                }).toList(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ] else ...[
-                SizedBox(
-                  height: 50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedCategory =
-                                categories[index]; // Set category
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
-                          ),
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[200],
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Text(
-                              categories[index],
-                              style: TextStyle(color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Show Main Screen Content
-                PromoBanner(), // the PromoBanner
+              ),
+
+              const SizedBox(height: 20),
+
+              // Show main screen if All is selected
+              if (selectedCategory == null) ...[
+                PromoBanner(), // Promo banner
                 const SizedBox(height: 20),
 
                 // Top Rated
@@ -273,7 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: topRatedItemsTitles.length,
                     itemBuilder: (context, index) {
                       return CategoryCell(
-                        // call the helper widget for the Top rated items
                         cObj: topRatedItemsTitles[index],
                         image: topRatedItemsImages[index],
                         onTap: () {},
@@ -281,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
+
                 // Recommended
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -293,7 +111,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: recommendedImages.length,
                     itemBuilder: (context, index) {
                       return CategoryCell(
-                        // call the helper widget for the Recommended items
                         cObj: '',
                         onTap: () {},
                         image: recommendedImages[index],
@@ -301,11 +118,177 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
                 ),
-
-                // Category Selection
+              ] else ...[
+                // Show filtered category items using Flexible
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.85,
+                 padding: EdgeInsets.all(16),
+                  child: Flexible(
+                    child: ItemScreen(
+                      categoryItems: allItems.where((item) => item.title.contains(selectedCategory!)).toList(),
+                    ),
+                  ),
+                ),
               ],
             ],
-          ),
+          )
+
+
+
+
+          // Column(
+          //   children: [
+          //     LocationNotificationSrearch(showSearchBar: true),
+          //     // load the location widget
+          //     const SizedBox(height: 15),
+          //
+          //     // Show Tabs Only If a Category is Selected
+          //     if (selectedCategory != null) ...[
+          //       Container(
+          //         height: MediaQuery.of(context).size.height * 0.85,
+          //         //padding: EdgeInsets.all(16),
+          //         child: DefaultTabController(
+          //           length: 1,
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.start,
+          //             children: [
+          //               // Back Button
+          //               Align(
+          //                 alignment: Alignment.centerLeft,
+          //                 child: TextButton(
+          //                   onPressed: () {
+          //                     setState(() {
+          //                       selectedCategory =
+          //                           null; // Reset to show main UI
+          //                     });
+          //                   },
+          //                   child: Row(
+          //                     mainAxisSize: MainAxisSize.min,
+          //                     children: [
+          //                       Icon(Icons.arrow_back, color: Colors.black),
+          //                       // Text("Back", style: TextStyle(color: Colors.black, fontSize: 16)),
+          //                     ],
+          //                   ),
+          //                 ),
+          //               ),
+          //
+          //               Expanded(
+          //                 // shows the items
+          //                 child: TabBarView(
+          //                   physics: NeverScrollableScrollPhysics(),
+          //
+          //                   children:
+          //                       categories.map((category) {
+          //                         // List<Category> filteredItems =
+          //                         //     category
+          //                         selectedCategory == "All"
+          //                             ? allItems
+          //                             : allItems
+          //                                 .where(
+          //                                   (item) =>
+          //                                       item.title.contains(category),
+          //                                 )
+          //                                 .toList();
+          //
+          //                         return ItemScreen(
+          //                           categoryItems: filteredItems,
+          //                         );
+          //                       }).toList(),
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     ] else ...[
+          //       SizedBox(
+          //         height: 50,
+          //         child: ListView.builder(
+          //           scrollDirection: Axis.horizontal,
+          //           itemCount: categories.length,
+          //           itemBuilder: (context, index) {
+          //             return GestureDetector(
+          //               onTap: () {
+          //                 setState(() {
+          //                   if (categories[index] == "All") {
+          //                     selectedCategory = null; // Reset to main screen
+          //                   } else {
+          //                     selectedCategory =
+          //                         categories[index]; // Show selected category
+          //                   }
+          //                 });
+          //               },
+          //               child: Container(
+          //                 padding: EdgeInsets.symmetric(
+          //                   horizontal: 10,
+          //                   vertical: 5,
+          //                 ),
+          //                 margin: EdgeInsets.symmetric(horizontal: 5),
+          //                 decoration: BoxDecoration(
+          //                   color: Colors.grey[200],
+          //                   borderRadius: BorderRadius.circular(5),
+          //                 ),
+          //                 child: Center(
+          //                   child: Text(
+          //                     categories[index],
+          //                     style: TextStyle(color: Colors.black),
+          //                   ),
+          //                 ),
+          //               ),
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //       const SizedBox(height: 20),
+          //       // Show Main Screen Content
+          //       PromoBanner(), // the PromoBanner
+          //       const SizedBox(height: 20),
+          //
+          //       // Top Rated
+          //       Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 20),
+          //         child: ViewAllTitleRow(title: "Top Rated", onView: () {}),
+          //       ),
+          //       SizedBox(
+          //         height: 120,
+          //         child: ListView.builder(
+          //           scrollDirection: Axis.horizontal,
+          //           itemCount: topRatedItemsTitles.length,
+          //           itemBuilder: (context, index) {
+          //             return CategoryCell(
+          //               // call the helper widget for the Top rated items
+          //               cObj: topRatedItemsTitles[index],
+          //               image: topRatedItemsImages[index],
+          //               onTap: () {},
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //       // Recommended
+          //       Padding(
+          //         padding: const EdgeInsets.symmetric(horizontal: 20),
+          //         child: ViewAllTitleRow(title: "Recommended", onView: () {}),
+          //       ),
+          //       SizedBox(
+          //         height: 120,
+          //         child: ListView.builder(
+          //           scrollDirection: Axis.horizontal,
+          //           itemCount: recommendedImages.length,
+          //           itemBuilder: (context, index) {
+          //             return CategoryCell(
+          //               // call the helper widget for the Recommended items
+          //               cObj: '',
+          //               onTap: () {},
+          //               image: recommendedImages[index],
+          //             );
+          //           },
+          //         ),
+          //       ),
+          //
+          //       // Category Selection
+          //     ],
+          //   ],
+          // ),
         ),
       ),
     );

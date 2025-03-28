@@ -9,4 +9,12 @@ class ResetPasswordError extends ResetPasswordState {
   ResetPasswordError({this.passwordError, this.confirmPasswordError});
 }
 
+class EmailError extends ResetPasswordState {
+  final String? errorMsg;
+
+  EmailError({this.errorMsg});
+}
+
+class EmailSuccess extends ResetPasswordState {}
+
 class ResetPasswordSuccess extends ResetPasswordState {}
