@@ -29,8 +29,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+
       //so the floatingActionButton stays contestant
-      backgroundColor: const Color(0xfff5f5f5),
+      backgroundColor: Colors.white,
       body: PageView(
         controller: _pageController,
         physics: const BouncingScrollPhysics(), // the animation of the sliding

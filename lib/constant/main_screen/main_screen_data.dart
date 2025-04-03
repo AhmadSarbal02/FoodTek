@@ -1,6 +1,6 @@
 // main screen data
 import 'package:flutter/material.dart';
-import '../../view/screen/main_screens/cart/cart_screen.dart';
+import '../../view/screen/main_screens/cart/main_cart_screen.dart';
 import '../../view/screen/main_screens/favorites/favorites_screen.dart';
 import '../../view/screen/main_screens/history/history_screen.dart';
 import '../../view/screen/main_screens/home/home_screen.dart';
@@ -25,7 +25,7 @@ final List<String> bottomNavImages = [
 final List<Widget> pages = [
   const HomeScreen(),
   const FavoritesScreen(),
-  const CartScreen(),
+  const MainCartPage(),
   const HistoryScreen(),
   const ProfileScreen(),
 ];

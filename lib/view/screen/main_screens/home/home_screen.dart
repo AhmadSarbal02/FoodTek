@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 .toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -47,17 +48,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     return GestureDetector(
                       onTap: () {
                         setState(() {
-                          selectedCategory = categories[index] == "All" ? null : categories[index];
+                          selectedCategory =
+                              categories[index] == "All"
+                                  ? null
+                                  : categories[index];
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
                         margin: EdgeInsets.symmetric(horizontal: 5),
                         decoration: BoxDecoration(
-                          color: selectedCategory == categories[index] ||
-                              (categories[index] == "All" && selectedCategory == null)
-                              ? Colors.orange[200] // Highlight selected
-                              : Colors.grey[200],
+                          color:
+                              selectedCategory == categories[index] ||
+                                      (categories[index] == "All" &&
+                                          selectedCategory == null)
+                                  ? Colors.orange[200] // Highlight selected
+                                  : Colors.grey[200],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -122,19 +131,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Show filtered category items using Flexible
                 Container(
                   height: MediaQuery.of(context).size.height * 0.85,
-                 padding: EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Flexible(
                     child: ItemScreen(
-                      categoryItems: allItems.where((item) => item.title.contains(selectedCategory!)).toList(),
+                      categoryItems:
+                          allItems
+                              .where(
+                                (item) =>
+                                    item.title.contains(selectedCategory!),
+                              )
+                              .toList(),
                     ),
                   ),
                 ),
               ],
             ],
-          )
-
-
-
+          ),
 
           // Column(
           //   children: [
