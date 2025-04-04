@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
             bottomNavImages[2], // Cart icon only
             width: 30,
             height: 30,
-            color: selectedTab == 2 ? Colors.grey : Colors.white,
+            color: Colors.white,
           ),
         ),
       ),
