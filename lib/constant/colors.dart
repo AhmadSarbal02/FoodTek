@@ -7,4 +7,5 @@ class AppColors {
   static const Color onBoardingtextColor = Color(
     0xFF455A64,
   ); // لون النصوص الرئيسي
+
 }

@@ -5,7 +5,7 @@ class FoodtekButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
 
-  const FoodtekButton({super.key, required this.text, required this.onPressed});
+  const FoodtekButton({super.key, required this.text, required this.onPressed, });
 
   @override
   Widget build(BuildContext context) {

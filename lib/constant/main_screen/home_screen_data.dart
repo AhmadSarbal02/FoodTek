@@ -1,70 +1,148 @@
 // home screen data still needs work
 import '../../model/category.dart';
-//final List<String> topList = ["All", "Burger", "Pizza", "sandwich"];
-final List<String> topListImages = [
-  "",
-  "assets/images/mainPage/home_page_images/top_list_images/burger.png",
-  "assets/images/mainPage/home_page_images/top_list_images/Pizza.png",
-  "assets/images/mainPage/home_page_images/top_list_images/sandwich.png",
-];
 
-final List<String> topRatedItemsTitles = [
-  "Chicken burger",
-  "Cheese burger",
-  "Chicken burger",
-];
-final List<String> topRatedItemsDescriptions = [
-  "100 gr chicken + tomato + cheese  Lettuce",
-  "100 gr meat + onion + tomato + Lettuce cheese",
-  "100 gr chicken + tomato + cheese  Lettuce",
-];
-final List<String> topRatedItemsPrices = ["\$20.00", "\$15.00", "\$20.00"];
-final List<String> topRatedItemsImages = [
-  "assets/images/mainPage/home_page_images/top_rated_list_images/img.png",
-  "assets/images/mainPage/home_page_images/top_rated_list_images/img_1.png",
-  "assets/images/mainPage/home_page_images/top_rated_list_images/img.png",
-];
-final List<String> recommendedImages = [
-  "assets/images/mainPage/home_page_images/recommend_images/curry.png",
-  "assets/images/mainPage/home_page_images/recommend_images/img_2.png",
-  "assets/images/mainPage/home_page_images/recommend_images/img_3.png",
-  "assets/images/mainPage/home_page_images/recommend_images/sushi.png",
-];
-
-final List<String> recommendedPrices = [
-  "\$103.0",
-  "\$50.0",
-  "\$12.99",
-  "\$8.20",
-];
-
-
-final List<String> categories = ["All", "Burger", "Pizza", "Sandwich"];
-String selectedCategory = "All";
-
-final List<Category> allItems = [
+final List<Category> items = [
   Category(
-    title: "Chicken Burger",
-    image: "assets/images/mainPage/home_page_images/top_rated_list_images/img.png",
+    title: "Chicken Sandwich",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/cheseBurger.png",
     description: "100 gr chicken + tomato + cheese + Lettuce",
     price: "\$20.00",
+    rating: 0,
+    id: 1,
   ),
   Category(
-    title: "Cheese Burger",
-    image: "assets/images/mainPage/home_page_images/top_rated_list_images/img_1.png",
-    description: "100 gr meat + onion + tomato + Lettuce cheese",
+    title: "Cheese Sandwich",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/pepperoniPizza.png",
+    description: "lzzhxcskldbvkj'adljjsvh",
     price: "\$15.00",
+    rating: 0,
+    id: 2,
+  ),
+  Category(
+    title: "Hot dog Sandwich",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/pizzaCheese.png",
+    description: "lhuvhjn,kjbhvgb.akhuj",
+    price: "\$15.00",
+    rating: 0,
+    id: 3,
   ),
   Category(
     title: "Pepperoni Pizza",
-    image: "assets/images/mainPage/home_page_images/top_rated_list_images/img.png",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/pepperoniPizza.png",
     description: "Classic Italian Pepperoni Pizza",
     price: "\$29.00",
+    rating: 0,
+    id: 4,
   ),
   Category(
     title: "Cheese Pizza",
-    image: "assets/images/mainPage/home_page_images/top_rated_list_images/img_1.png",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/pizzaCheese.png",
     description: "Margarita-style pizza with fresh mozzarella",
     price: "\$23.00",
+    rating: 0,
+    id: 5,
   ),
+  Category(
+    title: "Mexican Green Pizza",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/mexicanGreenWave.png",
+    description:
+        "A pizza loaded with crunchy onions, crisp capsicum, juicy tomatoes",
+    price: "\$23.00",
+    rating: 0,
+    id: 6,
+  ),
+  Category(
+    title: "Peppy Paneer Pizza",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/peppyPaneer.png",
+    description: "Chunky paneer with crisp capsicum and spicy red pepper",
+    price: "\$13.00",
+    rating: 0,
+    id: 7,
+  ),
+];
+
+// Top Rated Items
+final List<Category> topRatedItems = [
+  Category(
+    title: "Chicken Burger",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/chickenBurger.png",
+    description: "100 gr chicken + tomato + cheese Lettuce",
+    price: "\$20.00",
+    rating: 3.8,
+    id: 1,
+  ),
+  Category(
+    title: "Cheese Burger",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/cheseBurger.png",
+    description: "100 gr meat + onion + tomato + Lettuce cheese",
+    price: "\$15.00",
+    rating: 4.5,
+    id: 2,
+  ),
+  Category(
+    title: "Spicy Chicken Burger",
+    image:
+        "assets/images/mainPage/home_page_images/top_rated_list_images/cheseBurger.png",
+    description: "100 gr spicy chicken + tomato + cheese + Lettuce",
+    price: "\$20.00",
+    rating: 3.9,
+    id: 11,
+  ),
+];
+
+// Recommended Items
+final List<Category> recommendedItems = [
+  Category(
+    title: "Sushi Platter",
+    image: "assets/images/mainPage/home_page_images/recommend_images/sushi.png",
+    description: "",
+    price: "\$103.00",
+    rating: 0,
+    id: 10,
+  ),
+  Category(
+    title: "Curry",
+    image: "assets/images/mainPage/home_page_images/recommend_images/curry.png",
+    description: "",
+    price: "\$50.0",
+    rating: 0,
+    id: 22,
+  ),
+  Category(
+    title: "Grilled Steak",
+    image: "assets/images/mainPage/home_page_images/recommend_images/pasta.png",
+    description: "",
+    price: "\$12.99",
+    rating: 0,
+    id:25,
+  ),
+  Category(
+    title: "Cupcake",
+    image:
+        "assets/images/mainPage/home_page_images/recommend_images/cupcake.png",
+    description: "",
+    price: "\$8.20",
+    rating: 0,
+    id: 27,
+  ),
+];
+
+// Categories
+final List<String> categories = ["All", "Burger", "Pizza", "Sandwich"];
+String selectedCategory = "All";
+
+// Unified List of All Items
+final List<Category> allItems = [
+  ...topRatedItems,
+  ...recommendedItems,
+  ...items,
 ];

@@ -1,112 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-//
-// import '../../../../constant/colors.dart';
-// import '../../../widgets/main_page_widgets/location_notification_srearch.dart';
-// import '../../../widgets/main_page_widgets/notification_widget.dart';
-//
-// class FilterScreen extends StatefulWidget {
-//   const FilterScreen({super.key});
-//
-//   @override
-//   State<FilterScreen> createState() => _FilterScreenState();
-// }
-//
-// class _FilterScreenState extends State<FilterScreen> {
-//   double priceCurrentValue = 0;
-//   double discountCurrentValue = 0;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SingleChildScrollView(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             const SizedBox(height: 20),
-//             // Location & Notification Row
-//             LocationNotificationSrearch(showSearchBar: false),
-//
-//             Text("Filter", style: TextStyle(fontWeight: FontWeight.bold)),
-//             Text("Price range", style: TextStyle(color: Colors.grey[500])),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(5),
-//                     border: Border.all(width: 1),
-//                     color: Colors.green[500],
-//                   ),
-//                   child: Center(child: Text("Min")),
-//                 ),
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(5),
-//                     border: Border.all(width: 1),
-//                     color: Colors.green[500],
-//                   ),
-//                   child: Center(child: Text("Max")),
-//                 ),
-//               ],
-//             ),
-//             Slider(
-//               activeColor: Colors.green,
-//               inactiveColor: Colors.grey,
-//               value: priceCurrentValue,
-//               onChanged: (value) {
-//                 setState(() {
-//                   priceCurrentValue = value;
-//                 });
-//               },
-//               max: 108,
-//               min: 0,
-//               divisions: 108,
-//               label: priceCurrentValue.toString(),
-//             ),
-//             Text("Discount", style: TextStyle(color: Colors.grey[500])),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(5),
-//                     border: Border.all(width: 1),
-//                     color: Colors.green[500],
-//                   ),
-//                   child: Center(child: Text("Min")),
-//                 ),
-//                 Container(
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(5),
-//                     border: Border.all(width: 1),
-//                     color: Colors.green[500],
-//                   ),
-//                   child: Center(child: Text("Max")),
-//                 ),
-//               ],
-//             ),
-//
-//             Slider(
-//               activeColor: Colors.green,
-//               inactiveColor: Colors.grey,
-//               value: discountCurrentValue,
-//               onChanged: (value) {
-//                 setState(() {
-//                   discountCurrentValue = value;
-//                 });
-//               },
-//               max: 100,
-//               min: 0,
-//               divisions: 10,
-//               label: discountCurrentValue.toString(),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 
 import '../../../widgets/main_page_widgets/location_notification_srearch.dart';
@@ -117,45 +8,45 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
-  // String selectedCategory = "All"; // Default to show all
-  // List<Map<String, String>> dishes = [
-  //   {"name": "Cheeseburger", "category": "Fast Food"},
-  //   {"name": "Chocolate Cake", "category": "Dessert"},
-  //   {"name": "Spicy Crab Cakes", "category": "Sea Food"},
-  //   {"name": "Miso-Glazed Cod", "category": "Sea Food"},
-  //   {"name": "Lobster Thermidor", "category": "Sea Food"},
-  //   {"name": "Seafood Paella", "category": "Sea Food"},
-  //   {"name": "Tuna Tartare", "category": "Sea Food"},
-  //   {"name": "Clam Chowder", "category": "Sea Food"},
-  // ];
+  String _selectedCategory = "All";
 
-  // List<Map<String, String>> getFilteredDishes() {
-  //   if (selectedCategory == "All") {
-  //     return dishes; // Show all dishes
-  //   } else {
-  //     return dishes
-  //         .where((dish) => dish["category"] == selectedCategory)
-  //         .toList();
-  //   }
-  // }
-List<String> dishes = [
-    "Tuna Tartare",
-    "Spicy Crab Cakes",
-    "Seafood Paella",
-    "Clam Chowder",
-    "Miso-Glazed Cod",
-    "Lobster Thermidor",
+  List<Map<String, String>> dishes = [
+    {"name": "Cheeseburger", "category": "Fast Food"},
+    {"name": "Chocolate Cake", "category": "Dessert"},
+    {"name": "Spicy Crab Cakes", "category": "Sea Food"},
+    {"name": "Miso-Glazed Cod", "category": "Sea Food"},
+    {"name": "Lobster Thermidor", "category": "Sea Food"},
+    {"name": "Seafood Paella", "category": "Sea Food"},
+    {"name": "Tuna Tartare", "category": "Sea Food"},
+    {"name": "Clam Chowder", "category": "Sea Food"},
   ];
+
+  List<String> categories = ["All", "Fast Food", "Sea Food", "Dessert"];
+
+  List<Map<String, String>> getFilteredDishes() {
+    if (_selectedCategory == "All") {
+      return dishes;
+    } else {
+      return dishes
+          .where((dish) => dish["category"] == _selectedCategory)
+          .toList();
+    }
+  }
+
   double _minPrice = 0;
-  double _maxPrice = 100;
+  double _maxPrice = 108;
+  double _price = 0;
+  double _minDiscount = 0;
+  double _maxDiscount = 100;
+
   double _discount = 50;
   int _selectedLocation = 0;
+  Set<String> _selectedDishes = {}; // Track selected dishes
 
-  List<String> categories = ["Fast Food", "Sea Food", "Dessert"];
+  // List<String> categories = ["Fast Food", "Sea Food", "Dessert"];
   List<bool> categorySelected = [false, false, false];
 
   List<String> locationOptions = ["1 KM", "5 KM", "10 KM"];
-
 
   List<bool> dishesSelected = List.generate(6, (index) => false);
 
@@ -170,6 +61,7 @@ List<String> dishes = [
           children: [
             LocationNotificationSrearch(showSearchBar: false),
             Text("Filter", style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 10),
             // Price Range
             Text("Price range"),
             Row(
@@ -196,14 +88,16 @@ List<String> dishes = [
                 ),
                 Expanded(
                   child: Slider(
-                    value: _maxPrice,
-                    min: 0,
-                    max: 100,
-                    divisions: 10,
-                    label: "\$${_maxPrice.toStringAsFixed(0)}",
+                    activeColor: Colors.green,
+
+                    value: _price,
+                    min: _minPrice,
+                    max: _maxPrice,
+                    divisions: 108,
+                    label: "\$${_price.toStringAsFixed(0)}",
                     onChanged: (value) {
                       setState(() {
-                        _maxPrice = value;
+                        _price = value;
                       });
                     },
                   ),
@@ -218,7 +112,7 @@ List<String> dishes = [
             SizedBox(height: 16),
 
             // Discount
-            Text("Discount", style: TextStyle(fontWeight: FontWeight.bold)),
+            Text("Discount"),
             SizedBox(height: 15),
             Row(
               children: [
@@ -235,37 +129,69 @@ List<String> dishes = [
                 ),
               ],
             ),
-            Slider(
-              value: _discount,
-              min: 0,
-              max: 100,
-              divisions: 10,
-              label: "${_discount.toStringAsFixed(0)}%",
-              onChanged: (value) {
-                setState(() {
-                  _discount = value;
-                });
-              },
+            Row(
+              children: [
+                Text(
+                  "\$${_minDiscount.toStringAsFixed(0)}",
+                  style: TextStyle(fontSize: 16),
+                ),
+                Expanded(
+                  child: Slider(
+                    activeColor: Colors.green,
+                    value: _discount,
+                    min: _minDiscount,
+                    max: _maxDiscount,
+                    divisions: 10,
+                    label: "${_discount.toStringAsFixed(0)}%",
+                    onChanged: (value) {
+                      setState(() {
+                        _discount = value;
+                      });
+                    },
+                  ),
+                ),
+                Text(
+                  "\$${_maxDiscount.toStringAsFixed(0)}",
+                  style: TextStyle(fontSize: 16),
+                ),
+              ],
             ),
 
             SizedBox(height: 16),
 
             // Category Selection
+            // Text("Category", style: TextStyle(fontWeight: FontWeight.bold)),
+            // Wrap(
+            //   spacing: 8,
+            //   children: List.generate(categories.length, (index) {
+            //     return ChoiceChip(
+            //       label: Text(categories[index]),
+            //       selected: categorySelected[index],
+            //       onSelected: (selected) {
+            //         setState(() {
+            //           categorySelected[index] = selected;
+            //         });
+            //       },
+            //     );
+            //   }),
+            // ),
             Text("Category", style: TextStyle(fontWeight: FontWeight.bold)),
             Wrap(
               spacing: 8,
-              children: List.generate(categories.length, (index) {
-                return ChoiceChip(
-                  label: Text(categories[index]),
-                  selected: categorySelected[index],
-                  onSelected: (selected) {
-                    setState(() {
-                      categorySelected[index] = selected;
-                    });
-                  },
-                );
-              }),
+              children:
+                  categories.map((category) {
+                    return ChoiceChip(
+                      label: Text(category),
+                      selected: _selectedCategory == category,
+                      onSelected: (selected) {
+                        setState(() {
+                          _selectedCategory = category;
+                        });
+                      },
+                    );
+                  }).toList(),
             ),
+            SizedBox(height: 16),
 
             SizedBox(height: 16),
 
@@ -299,29 +225,35 @@ List<String> dishes = [
             Text("Dishes", style: TextStyle(fontWeight: FontWeight.bold)),
             Wrap(
               spacing: 8,
-              children: List.generate(dishes.length, (index) {
-                return FilterChip(
-                  label: Text(dishes[index]),
-                  selected: dishesSelected[index],
-                  onSelected: (selected) {
-                    setState(() {
-                      dishesSelected[index] = selected;
-                    });
-                  },
-                );
-              }),
+              children:
+                  getFilteredDishes().map((dish) {
+                    return FilterChip(
+                      label: Text(dish["name"]!),
+                      selected: _selectedDishes.contains(dish["name"]!),
+                      onSelected: (selected) {
+                        setState(() {
+                          if (selected) {
+                            _selectedDishes.add(dish["name"]!);
+                          } else {
+                            _selectedDishes.remove(dish["name"]!);
+                          }
+                        });
+                      },
+                    );
+                  }).toList(),
             ),
 
             SizedBox(height: 24),
-
-            // Apply Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  // Apply filter logic here
-                },
-                child: Text("Apply Filters"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Apply Filters"),
+                ),
               ),
             ),
           ],

@@ -87,7 +87,7 @@ class RoundTitleTextfield extends StatelessWidget {
     return Container(
       height: 55,
       decoration: BoxDecoration(
-        color: bgColor ?? AppColors.onBoardingtextColor,
+        color: bgColor ?? Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
@@ -112,9 +112,10 @@ class RoundTitleTextfield extends StatelessWidget {
                       ),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
+
                       hintText: hintText,
                       hintStyle: TextStyle(
-                        color: AppColors.onBoardingtextColor,
+                        color: Colors.black,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
@@ -128,7 +129,7 @@ class RoundTitleTextfield extends StatelessWidget {
                   child: Text(
                     title,
                     style: TextStyle(
-                      color: AppColors.onBoardingtextColor,
+                      color: AppColors.primaryColor,
                       fontSize: 11,
                     ),
                   ),
