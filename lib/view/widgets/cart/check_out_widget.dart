@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:foodtek/view/screen/main_screens/cart/checkout/location_screeen.dart';
 
 class CheckOutWidget extends StatelessWidget {
+  void Function()? onPressed;
   final double subtotel;
-  CheckOutWidget({super.key, required this.subtotel});
+  CheckOutWidget({super.key, required this.subtotel, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class CheckOutWidget extends StatelessWidget {
               buildCheckoutRow('Total:', subtotel + 20, isTotal: true),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   minimumSize: const Size(double.infinity, 50),

@@ -15,14 +15,14 @@ class ItemDetailsScreen extends StatefulWidget {
   final int id;
 
   const ItemDetailsScreen({
-    Key? key,
+    super.key,
     required this.name,
     required this.image,
     required this.price,
     required this.description,
     required this.rating,
     required this.id,
-  }) : super(key: key);
+  });
 
   @override
   State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
@@ -45,7 +45,6 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -78,34 +77,33 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                     widget.name,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                   ),
-              BlocBuilder<FavoritesCubit, FavoritesState>(
-                builder: (context, state) {
-                  final favCubit = context.read<FavoritesCubit>();
+                  BlocBuilder<FavoritesCubit, FavoritesState>(
+                    builder: (context, state) {
+                      final favCubit = context.read<FavoritesCubit>();
 
-                  final favoriteItem = FavoriteItem(
-                    id: widget.id.toString(),
-                    name: widget.name,
-                    image: widget.image,
-                    price: widget.price,
-                    description: widget.description,
-                    rating: widget.rating,
-                  );
+                      final favoriteItem = FavoriteItem(
+                        id: widget.id.toString(),
+                        name: widget.name,
+                        image: widget.image,
+                        price: widget.price,
+                        description: widget.description,
+                        rating: widget.rating,
+                      );
 
-                  final isFav = favCubit.isFavorite(favoriteItem);
+                      final isFav = favCubit.isFavorite(favoriteItem);
 
-                  return IconButton(
-                    icon: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      favCubit.toggleFavorite(favoriteItem);
+                      return IconButton(
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          favCubit.toggleFavorite(favoriteItem);
+                        },
+                      );
                     },
-                  );
-                },
-              )
-
-              ],
+                  ),
+                ],
               ),
             ),
 
@@ -133,7 +131,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   ),
                   SizedBox(width: 10),
                   Text(
-                    "${currentRating.toStringAsFixed(1)}",
+                    currentRating.toStringAsFixed(1),
                     style: TextStyle(fontSize: 14),
                   ),
                 ],
@@ -153,7 +151,6 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
             ),
             SizedBox(height: 30),
 
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Text(widget.description, style: TextStyle(fontSize: 12)),
@@ -161,7 +158,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
             SizedBox(height: 40),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child:Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Spicy Selector
@@ -171,13 +168,18 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       const Text("Spicy"),
                       Row(
                         children: [
-                          const Text("Mild", style: TextStyle(color: Colors.green)),
+                          const Text(
+                            "Mild",
+                            style: TextStyle(color: Colors.green),
+                          ),
                           SizedBox(
                             width: 150, // Adjust width as needed
                             child: SliderTheme(
                               data: SliderTheme.of(context).copyWith(
                                 trackHeight: 6,
-                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
+                                thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 8,
+                                ),
                               ),
                               child: Slider(
                                 value: spicy,
@@ -195,7 +197,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                               ),
                             ),
                           ),
-                          const Text("Hot", style: TextStyle(color: Colors.red)),
+                          const Text(
+                            "Hot",
+                            style: TextStyle(color: Colors.red),
+                          ),
                         ],
                       ),
                     ],
@@ -220,12 +225,17 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                             color: Colors.green,
                             style: OutlinedButton.styleFrom(
                               side: const BorderSide(color: Colors.green),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                           ),
                           Text(
                             qty.toString(),
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           IconButton(
                             onPressed: () {
@@ -239,7 +249,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                             icon: const Icon(Icons.add, color: Colors.white),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
                             ),
                           ),
                         ],

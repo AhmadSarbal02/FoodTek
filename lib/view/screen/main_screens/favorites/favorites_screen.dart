@@ -84,6 +84,8 @@ import '../../../../cubit/main_cubit/favorites_cubit.dart';
 import '../../../widgets/main_page_widgets/location_notification_srearch.dart';
 
 class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

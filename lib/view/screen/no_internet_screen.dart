@@ -26,7 +26,7 @@ class _NoInternetScreenState extends State<NoInternetScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 250,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -5,8 +5,6 @@ import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/cubit/auth/login_cubit.dart';
 import 'package:foodtek/cubit/auth/sign_up_cubit.dart';
 import 'package:foodtek/view/screen/Splash_Screen.dart';
-import 'package:foodtek/view/screen/main_screens/profile/main_profile_screen.dart';
-import 'package:foodtek/view/screen/main_screens/profile/profile_screen.dart';
 import 'cubit/auth/reset_password_cubit.dart';
 import 'cubit/main_cubit/favorites_cubit.dart';
 import 'cubit/onboarding_cubit.dart';
