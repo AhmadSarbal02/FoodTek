@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/main_screens/cart/checkout/checkout_screen.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class LocationScreen extends StatelessWidget {
+class LocationScreen extends StatefulWidget {
+  @override
+  State<LocationScreen> createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  GoogleMapController? mapController;
+  List<Marker> markers = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +21,49 @@ class LocationScreen extends StatelessWidget {
           Container(color: Color(0xFFEAEAEA)),
 
           // Map roads and markers
-          Positioned.fill(child: CustomPaint(painter: MapPainter())),
+          Positioned.fill(
+            child: GoogleMap(
+              mapToolbarEnabled: true,
+              mapType:
+                  MapType
+                      .normal, // نوع الخريطة، هنا يتم استخدام النمط الهجين (Hybrid) الذي يجمع بين الخريطة العادية وصور الأقمار الصناعية
+              myLocationButtonEnabled:
+                  true, // تفعيل زر تحديد الموقع الحالي للمستخدم على الخريطة
+
+              myLocationEnabled:
+                  true, // إظهار موقع المستخدم الحالي على الخريطة إذا كانت الصلاحيات مفعلة
+
+              markers:
+                  markers
+                      .toSet(), // تحديد العلامات (Markers) التي ستظهر على الخريطة، يتم تحويل القائمة إلى Set
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                  31.952409734006356,
+                  35.90800244361162,
+                ), // تحديد الموقع الأولي الذي سيتم عرض الخريطة عنده (إحداثيات خط العرض والطول)
+                zoom: 15, // مستوى التقريب (Zoom) عند تحميل الخريطة
+              ),
+              onMapCreated: (controller) {
+                mapController = controller;
+              },
+              onTap: (LatLng latlang) {
+                markers.clear();
+                print(
+                  "============================value.latitude = ${latlang.latitude}===========================================",
+                );
+                print(
+                  "============================value.longitude = ${latlang.longitude}=========================================",
+                );
+                markers.add(
+                  Marker(
+                    markerId: MarkerId("${latlang.latitude}"),
+                    position: LatLng(latlang.latitude, latlang.longitude),
+                  ),
+                );
+                setState(() {});
+              },
+            ),
+          ),
 
           // Location search bar
           Positioned(
@@ -49,7 +100,7 @@ class LocationScreen extends StatelessWidget {
             ),
           ),
 
-          // Location confirmation card
+          //  Location confirmation card
           Positioned(
             bottom: 80,
             left: 20,
@@ -75,16 +126,18 @@ class LocationScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.grey, fontSize: 14),
                   ),
                   SizedBox(height: 8),
+
                   Row(
                     children: [
                       Icon(Icons.location_on, color: Color(0xFF32B768)),
-
+                      SizedBox(width: 8),
                       Text(
-                        '123 Al-Madina Street, Abdali, Amman, Jordan',
+                        '123 Al-Madina Street, Abdali,\n Amman, Jordan',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
                   ),
+
                   SizedBox(height: 15),
                   FoodtekButton(
                     text: "Set Location",
@@ -105,63 +158,4 @@ class LocationScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class MapPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    // Draw some roads
-    final paint =
-        Paint()
-          ..color = Colors.white
-          ..strokeWidth = 5
-          ..style = PaintingStyle.stroke;
-
-    // Main roads
-    canvas.drawLine(
-      Offset(0, size.height * 0.4),
-      Offset(size.width, size.height * 0.5),
-      paint,
-    );
-
-    canvas.drawLine(
-      Offset(size.width * 0.3, 0),
-      Offset(size.width * 0.5, size.height),
-      paint,
-    );
-
-    canvas.drawLine(
-      Offset(size.width * 0.7, 0),
-      Offset(size.width * 0.8, size.height),
-      paint,
-    );
-
-    // Cross roads
-    canvas.drawLine(
-      Offset(0, size.height * 0.6),
-      Offset(size.width, size.height * 0.7),
-      paint..strokeWidth = 3,
-    );
-
-    canvas.drawLine(
-      Offset(size.width * 0.2, 0),
-      Offset(size.width * 0.3, size.height),
-      paint..strokeWidth = 3,
-    );
-
-    // Location pin
-    final pinPaint =
-        Paint()
-          ..color = Color(0xFF32B768)
-          ..style = PaintingStyle.fill;
-
-    canvas.drawCircle(
-      Offset(size.width * 0.5, size.height * 0.4),
-      10,
-      pinPaint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
