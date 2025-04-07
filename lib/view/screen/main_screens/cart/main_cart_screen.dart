@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/main_screens/cart/cart_screen.dart';
 import 'package:foodtek/view/screen/main_screens/history/history_screen.dart';
-import 'package:foodtek/view/widgets/cart/cart_item_widget.dart';
-import 'package:foodtek/view/widgets/cart/empty_cart-widget.dart';
 import 'package:foodtek/view/widgets/main_page_widgets/location_notification_srearch.dart';
 
 class MainCartPage extends StatefulWidget {

@@ -3,6 +3,8 @@ import 'package:foodtek/view/screen/main_screens/main_page.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
+  const OrderSuccessScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

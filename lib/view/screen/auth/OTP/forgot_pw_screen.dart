@@ -11,9 +11,7 @@ import '../../../widgets/auth/custom_text_felid_widget.dart';
 import '../../../widgets/auth/foodtek_button.dart';
 
 class ForgotPwScreen extends StatelessWidget {
-  final TextEditingController _emailController = TextEditingController();
-
-  ForgotPwScreen({super.key});
+  const ForgotPwScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

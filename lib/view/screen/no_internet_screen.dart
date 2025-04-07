@@ -1,8 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:foodtek/core/functions/check_internt.dart';
-import 'package:foodtek/responseve.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
-import 'package:foodtek/view/screen/onBoarding_screen.dart';
+import 'package:foodtek/view/screen/onboarding_screen.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

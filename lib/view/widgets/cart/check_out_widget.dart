@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:foodtek/view/screen/main_screens/cart/checkout/location_screeen.dart';
 
+// ignore: must_be_immutable
 class CheckOutWidget extends StatelessWidget {
   void Function()? onPressed;
   final double subtotel;
@@ -18,6 +18,7 @@ class CheckOutWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.1),
             blurRadius: 10,
             spreadRadius: 1,

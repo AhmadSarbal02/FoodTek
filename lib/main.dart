@@ -4,7 +4,7 @@ import 'package:foodtek/constant/colors.dart';
 
 import 'package:foodtek/cubit/auth/login_cubit.dart';
 import 'package:foodtek/cubit/auth/sign_up_cubit.dart';
-import 'package:foodtek/view/screen/Splash_Screen.dart';
+import 'package:foodtek/view/screen/auth/login.dart';
 import 'cubit/auth/reset_password_cubit.dart';
 import 'cubit/main_cubit/favorites_cubit.dart';
 import 'cubit/onboarding_cubit.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => OnboardingCubit()),
-        BlocProvider(create: (context) => LoginCubit()),
+        BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
         BlocProvider(create: (context) => ResetPasswordCubit()),
         BlocProvider(create: (context) => SignUpCubit()),
         BlocProvider(create: (context) => FavoritesCubit()),
@@ -36,7 +36,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryColor),
         ),
         //home: FilterScreen(),
-        home: SplashScreen(),
+        home: LoginScreen(),
+        //SplashScreen(),
         //mainSplashScreen()_screens: ForgotPwScreen(),
       ),
     );

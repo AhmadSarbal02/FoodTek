@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/constant/colors.dart';
-import 'package:foodtek/constant/onboarding-data.dart';
+import 'package:foodtek/constant/onboarding_data.dart';
+
 import 'package:foodtek/core/functions/determine_position.dart';
 import 'package:foodtek/cubit/onboarding_cubit.dart';
 import 'package:foodtek/state/onboarding_cubit_state.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
 import 'package:foodtek/view/widgets/onboarding/onBoarding_widget.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -24,6 +23,7 @@ class OnboardingScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       body: BlocBuilder<OnboardingCubit, OnboardingState>(
         builder: (context, state) {
+          // ignore: unused_local_variable
           int currentPage = 0;
           bool isLastPage = false;
 

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:foodtek/main.dart';
 import 'package:foodtek/view/screen/main_screens/cart/checkout/add_card_screen.dart';
 import 'package:foodtek/view/widgets/cart/check_out_widget.dart';
 
 class CheckoutScreen extends StatefulWidget {
+  const CheckoutScreen({super.key});
+
   @override
   State<CheckoutScreen> createState() => _CheckoutScreenState();
 }

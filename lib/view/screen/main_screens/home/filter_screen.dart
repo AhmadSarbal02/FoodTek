@@ -6,10 +6,10 @@ class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
 
   @override
-  _FilterScreenState createState() => _FilterScreenState();
+  FilterScreenState createState() => FilterScreenState();
 }
 
-class _FilterScreenState extends State<FilterScreen> {
+class FilterScreenState extends State<FilterScreen> {
   String _selectedCategory = "All";
 
   List<Map<String, String>> dishes = [

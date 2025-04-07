@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     List<Category> filteredItems = // to filter the items
         selectedCategory == null || selectedCategory == "All"
             ? allItems

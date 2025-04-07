@@ -1,10 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 
 import 'package:foodtek/core/functions/check_internt.dart';
 import 'package:foodtek/view/screen/no_internet_screen.dart';
-import 'package:foodtek/view/screen/onBoarding_screen.dart';
+import 'package:foodtek/view/screen/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'main_screens/main_page.dart';
 

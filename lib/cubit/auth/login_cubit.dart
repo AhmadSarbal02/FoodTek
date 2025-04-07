@@ -5,15 +5,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitial());
 
-  // تسجيل الدخول بالبريد الإلكتروني وكلمة المرور
+  // Property to store remembered email
+  String? rememberedEmail;
+
+  // Login with email and password
   Future<void> login(String email, String password, bool rememberMe) async {
-    // التحقق من أن الحقول غير فارغة
+    // Check for empty fields
     if (email.isEmpty || password.isEmpty) {
       emit(LoginError('Please fill in all fields'));
       return;
     }
 
-    // التحقق من صحة تنسيق البريد الإلكتروني
+    // Validate email format
     final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
     if (!emailRegex.hasMatch(email)) {
       emit(LoginError('Please enter a valid email address'));
@@ -22,18 +25,29 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       emit(LoginLoading());
-      // حفظ خيار "تذكرني" إذا تم تحديده
+
+      // Here you would typically make an API call to authenticate
+      // For demo purposes, we'll simulate a successful login after a delay
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Save remember me preference if selected
       if (rememberMe) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('rememberMe', true);
         await prefs.setString('userEmail', email);
+      } else {
+        // If not remember me, clear any previous saved data
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.remove('rememberMe');
+        await prefs.remove('userEmail');
       }
 
       emit(LoginSuccess());
     } catch (e) {
       String errorMessage;
+      final errorCode = e.toString();
 
-      switch (e) {
+      switch (errorCode) {
         case 'user-not-found':
           errorMessage = 'No user found with this email address';
           break;
@@ -58,18 +72,18 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  // التحقق من وجود مستخدم مسجل مسبقاً
+  // Check for existing remembered user
   Future<void> checkExistingUser() async {
     try {
-      // التحقق من وجود بيانات "تذكرني"
+      // Check for remember me data
       final prefs = await SharedPreferences.getInstance();
       final rememberMe = prefs.getBool('rememberMe') ?? false;
 
       if (rememberMe) {
         final userEmail = prefs.getString('userEmail');
         if (userEmail != null && userEmail.isNotEmpty) {
-          // يجب أن يقوم المستخدم بإدخال كلمة المرور مجدداً
-          // يمكننا فقط ملء حقل البريد الإلكتروني تلقائياً
+          // Store the email for auto-fill
+          rememberedEmail = userEmail;
         }
       }
 

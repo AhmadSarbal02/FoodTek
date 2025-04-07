@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodtek/cubit/auth/login_cubit.dart';
+import 'package:foodtek/state/auth/login_state.dart';
 import 'package:foodtek/view/screen/auth/OTP/forgot_pw_screen.dart';
 import 'package:foodtek/view/screen/auth/sign_up_screen.dart';
 import 'package:foodtek/view/screen/main_screens/main_page.dart';
@@ -23,6 +26,23 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _obscurePassword = true;
 
   @override
+  void initState() {
+    super.initState();
+    // Check if there's a remembered user when the screen initializes
+    context.read<LoginCubit>().checkExistingUser().then((_) {
+      // If there's a remembered email, populate the email field
+      // ignore: use_build_context_synchronously
+      final loginCubit = context.read<LoginCubit>();
+      if (loginCubit.rememberedEmail != null) {
+        _emailController.text = loginCubit.rememberedEmail!;
+        setState(() {
+          _rememberMe = true;
+        });
+      }
+    });
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
@@ -31,198 +51,231 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ReusableScaffold(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Column(
-              children: [
-                // شعار التطبيق
-                CustomFoodtekLogoWidget(),
+    return BlocProvider(
+      create: (_) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginState>(
+        listener: (context, state) {
+          if (state is LoginSuccess) {
+            // Navigate to main page on successful login
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => MainPage()),
+            );
+          } else if (state is LoginError) {
+            // Show error message using SnackBar
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(state.message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+        },
+        builder: (context, state) {
+          return ReusableScaffold(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      // App Logo
+                      CustomFoodtekLogoWidget(),
 
-                // بطاقة تسجيل الدخول
-                CustomAuthCard(
-                  arrowIcon: false,
-                  title: "Login",
-                  backTo: "",
-                  login: "",
-                  page: "",
-                  titleAlign: TextAlign.center,
-                  description: "Don't have an account?",
-                  descriptionAlign: TextAlign.center,
-                  descriptionword: " Sign Up",
-                  descriptionWordOnTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignUpScreen()),
-                    );
-                  },
-                  children: [
-                    // حقل البريد الإلكتروني
-                    CustomTextFelidWidget(
-                      controller: _emailController,
-                      label: "Email",
-                      hintText: 'example@email.com',
-                      type: TextInputType.emailAddress,
-                      obscure: false,
-                    ),
-
-                    // حقل كلمة المرور
-                    CustomTextFelidWidget(
-                      controller: _passwordController,
-                      label: "Password",
-                      hintText: '*******',
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _obscurePassword
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          color: Colors.grey,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            _obscurePassword = !_obscurePassword;
-                          });
+                      // Login Card
+                      CustomAuthCard(
+                        arrowIcon: false,
+                        title: "Login",
+                        backTo: "",
+                        login: "",
+                        page: "",
+                        titleAlign: TextAlign.center,
+                        description: "Don't have an account?",
+                        descriptionAlign: TextAlign.center,
+                        descriptionword: " Sign Up",
+                        descriptionWordOnTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUpScreen(),
+                            ),
+                          );
                         },
-                      ),
-                      type: TextInputType.text,
-                      obscure: _obscurePassword,
-                    ),
+                        children: [
+                          // Email Field
+                          CustomTextFelidWidget(
+                            controller: _emailController,
+                            label: "Email",
+                            hintText: 'example@email.com',
+                            type: TextInputType.emailAddress,
+                            obscure: false,
+                          ),
 
-                    // تذكرني ونسيت كلمة المرور
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // تذكرني
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: _rememberMe,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _rememberMe = value!;
-                                  });
+                          // Password Field
+                          CustomTextFelidWidget(
+                            controller: _passwordController,
+                            label: "Password",
+                            hintText: '*******',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                _obscurePassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.grey,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _obscurePassword = !_obscurePassword;
+                                });
+                              },
+                            ),
+                            type: TextInputType.text,
+                            obscure: _obscurePassword,
+                          ),
+
+                          // Remember me and Forgot password
+                          SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // Remember me
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 24,
+                                    height: 24,
+                                    child: Checkbox(
+                                      value: _rememberMe,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _rememberMe = value!;
+                                        });
+                                      },
+                                      activeColor: Color(0xFF38B443),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    'Remember me',
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              // Forgot password
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ForgotPwScreen(),
+                                    ),
+                                  );
                                 },
-                                activeColor: Color(0xFF38B443),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
+                                child: Text(
+                                  'Forgot Password ?',
+                                  style: TextStyle(
+                                    color: Color(0xFF38B443),
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              'Remember me',
-                              style: TextStyle(
-                                color: Colors.grey[700],
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        // نسيت كلمة المرور
-                        GestureDetector(
-                          onTap: () {
-                            // التنقل إلى صفحة نسيت كلمة المرور
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ForgotPwScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Forgot Password ?',
-                            style: TextStyle(
-                              color: Color(0xFF38B443),
-                              fontSize: 14,
-                            ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
 
-                    // زر تسجيل الدخول
-                    SizedBox(height: 24),
-                    FoodtekButton(
-                      text: "Login",
-                      onPressed: () {
-                        // state is LoginLoading
-                        //     ? null
-                        //     : () {
-                        //       // استدعاء دالة تسجيل الدخول من cubit
-                        //       context.read<LoginCubit>().login(
-                        //         _emailController.text,
-                        //         _passwordController.text,
-                        //         _rememberMe,
-                        //       );
-                        //     };
-
-                        // just to check if the location is saved in the SharedPreferences
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => MainPage()),
-                        );
-                      },
-                    ),
-
-                    //فاصل
-                    SizedBox(height: 24),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(color: Colors.grey[300], thickness: 1),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'Or',
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 14,
-                            ),
+                          // Login Button
+                          SizedBox(height: 24),
+                          FoodtekButton(
+                            text: "Login",
+                            isLoading: state is LoginLoading,
+                            onPressed:
+                                state is LoginLoading
+                                    ? null
+                                    : () {
+                                      // Call login function from cubit
+                                      context.read<LoginCubit>().login(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                        _rememberMe,
+                                      );
+                                    },
                           ),
-                        ),
-                        Expanded(
-                          child: Divider(color: Colors.grey[300], thickness: 1),
-                        ),
-                      ],
-                    ),
 
-                    // أزرار تسجيل الدخول بحسابات أخرى
-                    SizedBox(height: 16),
-                    CustomSocialLoginButton(
-                      text: 'Continue with Google',
-                      iconPath: 'assets/images/auth/google.png',
-                    ),
+                          // Divider
+                          SizedBox(height: 24),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey[300],
+                                  thickness: 1,
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                child: Text(
+                                  'Or',
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey[300],
+                                  thickness: 1,
+                                ),
+                              ),
+                            ],
+                          ),
 
-                    SizedBox(height: 12),
-                    CustomSocialLoginButton(
-                      text: 'Continue with Facebook',
-                      iconPath: 'assets/images/auth/facebook_icon.png',
-                    ),
+                          // Social Login Buttons
+                          SizedBox(height: 16),
+                          CustomSocialLoginButton(
+                            text: 'Continue with Google',
+                            iconPath: 'assets/images/auth/google.png',
+                            onPressed: () {
+                              // Handle Google login
+                            },
+                          ),
 
-                    SizedBox(height: 12),
-                    CustomSocialLoginButton(
-                      text: 'Continue with Apple',
-                      iconPath: 'assets/images/auth/apple.png',
-                    ),
-                  ],
-                ),
-                SizedBox(height: 32),
-              ],
+                          SizedBox(height: 12),
+                          CustomSocialLoginButton(
+                            text: 'Continue with Facebook',
+                            iconPath: 'assets/images/auth/facebook_icon.png',
+                            onPressed: () {
+                              // Handle Facebook login
+                            },
+                          ),
+
+                          SizedBox(height: 12),
+                          CustomSocialLoginButton(
+                            text: 'Continue with Apple',
+                            iconPath: 'assets/images/auth/apple.png',
+                            onPressed: () {
+                              // Handle Apple login
+                            },
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 32),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
-    //     },
-    //   ),
-    // );
   }
 }
