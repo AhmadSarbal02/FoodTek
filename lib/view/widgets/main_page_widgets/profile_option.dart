@@ -6,7 +6,13 @@ class ProfileOption extends StatelessWidget {
   final Widget? leading;
   final VoidCallback onTap;
 
-  ProfileOption(this.title, {this.trailing, this.leading, required this.onTap});
+  const ProfileOption(
+    this.title, {
+    super.key,
+    this.trailing,
+    this.leading,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {

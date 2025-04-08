@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class CheckOutWidget extends StatelessWidget {
+  void Function()? onPressed;
   final double subtotel;
-  CheckOutWidget({super.key, required this.subtotel});
+  CheckOutWidget({super.key, required this.subtotel, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +18,7 @@ class CheckOutWidget extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.1),
             blurRadius: 10,
             spreadRadius: 1,
@@ -47,7 +50,7 @@ class CheckOutWidget extends StatelessWidget {
               buildCheckoutRow('Total:', subtotel + 20, isTotal: true),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   minimumSize: const Size(double.infinity, 50),

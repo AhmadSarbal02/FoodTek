@@ -10,210 +10,211 @@ import 'package:foodtek/view/widgets/auth/custom_foodtek_logo_widget.dart';
 import 'package:foodtek/view/widgets/auth/custom_text_felid_widget.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 
-// ignore: must_be_immutable
 class SignUpScreen extends StatelessWidget {
-  GlobalKey<FormState> formkey = GlobalKey();
-  final TextEditingController? emailController = TextEditingController();
-  final TextEditingController? passwordController = TextEditingController();
-  final TextEditingController? nameController = TextEditingController();
-  final TextEditingController? dateController = TextEditingController();
-  final TextEditingController? phoneController = TextEditingController();
-  String texterror = "";
+  final GlobalKey<FormState> formkey = GlobalKey();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final signUpCubit = context.read<SignUpCubit>();
+
     return ReusableScaffold(
       child: SingleChildScrollView(
         child: BlocConsumer<SignUpCubit, SignUpState>(
           listener: (context, state) {
-            if (state is SignUpError) {
-              texterror = state.message;
-            } else if (state is SignUpSuccess) {
-              texterror = "";
-            }
-          },
-          builder:
-              (context, state) => BlocBuilder<SignUpCubit, SignUpState>(
-                builder:
-                    (context, state) => Column(
-                      children: [
-                        CustomFoodtekLogoWidget(),
-                        CustomAuthCard(
-                          arrowIcon: true,
-                          title: "sign up",
-                          backTo: "",
-                          login: "",
-                          page: "",
-                          titleAlign: TextAlign.start,
-                          description: "Already have an account ? ",
-                          descriptionword: "Login",
-                          descriptionWordOnTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                            );
-                          },
-                          descriptionAlign: TextAlign.start,
-                          children: [
-                            Form(
-                              key: formkey,
-                              child: Column(
-                                children: [
-                                  CustomTextFelidWidget(
-                                    controller: nameController,
-                                    label: "Full Name",
-                                    hintText: "Your Name",
-                                    type: TextInputType.text,
-                                    obscure: false,
-                                    validator: (value) {
-                                      context.read<SignUpCubit>().checkEmpty(
-                                        val: value ?? "",
-                                      );
-                                      context.read<SignUpCubit>().checkLength(
-                                        val: value ?? "",
-                                      );
-                                      return null;
-                                    },
-                                    errorText: texterror,
-                                  ),
+            if (state is SignUpSuccess) {
+              // إذا تم التحقق من النموذج بنجاح، انتقل إلى شاشة OTP
 
-                                  CustomTextFelidWidget(
-                                    controller: emailController,
-                                    label: "Email",
-                                    hintText: "example@email.com",
-                                    type: TextInputType.emailAddress,
-                                    obscure: false,
-                                    validator: (value) {
-                                      context.read<SignUpCubit>().checkEmpty(
-                                        val: value ?? "",
-                                      );
-                                      context.read<SignUpCubit>().isEmail(
-                                        email: value ?? "",
-                                      );
-                                      return null;
-                                    },
-                                    errorText: texterror,
-                                  ),
-
-                                  CustomTextFelidWidget(
-                                    controller: dateController,
-                                    label: "Birth of date",
-                                    hintText: "DD/MM/YYYY",
-                                    type: TextInputType.datetime,
-                                    obscure: false,
-                                    validator: (value) {
-                                      context.read<SignUpCubit>().checkEmpty(
-                                        val: value ?? "",
-                                      );
-                                      return null;
-                                    },
-                                    errorText: texterror,
-                                  ),
-
-                                  CustomTextFelidWidget(
-                                    controller: phoneController,
-                                    label: "Phone",
-                                    hintText: "0770000000",
-                                    type: TextInputType.number,
-                                    obscure: false,
-                                    validator: (value) {
-                                      context.read<SignUpCubit>().checkEmpty(
-                                        val: value ?? "",
-                                      );
-                                      context.read<SignUpCubit>().checkLength(
-                                        val: value ?? "",
-                                      );
-                                      return null;
-                                    },
-                                    errorText: texterror,
-                                  ),
-
-                                  CustomTextFelidWidget(
-                                    controller: passwordController,
-                                    label: "Set Password",
-                                    hintText: '*******',
-                                    suffixIcon: IconButton(
-                                      icon: Icon(
-                                        Icons.visibility_off_outlined,
-                                        color: Colors.grey,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                    type: TextInputType.text,
-                                    obscure: true,
-                                    validator: (value) {
-                                      context.read<SignUpCubit>().checkEmpty(
-                                        val: value ?? "",
-                                      );
-                                      context
-                                          .read<SignUpCubit>()
-                                          .isStrongPassword(
-                                            password: value ?? "",
-                                          );
-                                      return null;
-                                    },
-                                    errorText: texterror,
-                                  ),
-                                ],
-                              ),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => OtpScreen(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginScreen(),
                             ),
+                          );
+                        },
+                      ),
+                ),
+              );
+            }
+            // يمكنك إضافة معالجة أخرى هنا مثل عرض snackbar في حالة الخطأ
+          },
+          builder: (context, state) {
+            // استخراج رسائل الخطأ من الحالة
+            Map<String, String> fieldErrors = {};
+            if (state is SignUpValidationError ||
+                state is SignUpFieldValidation) {
+              fieldErrors =
+                  (state is SignUpValidationError)
+                      ? (state).fieldErrors
+                      : (state as SignUpFieldValidation).fieldErrors;
+            }
 
-                            const SizedBox(height: 24),
-                            FoodtekButton(
-                              text: "Register",
+            // التحقق من حالة رؤية كلمة المرور
+            bool obscurePassword = true;
+            if (state is SignUpPasswordVisibilityChanged) {
+              obscurePassword = (state).isVisible;
+            } else {
+              obscurePassword = signUpCubit.obscureText;
+            }
+
+            return Column(
+              children: [
+                CustomFoodtekLogoWidget(),
+                CustomAuthCard(
+                  arrowIcon: true,
+                  title: "sign up",
+                  backTo: "",
+                  login: "",
+                  page: "",
+                  titleAlign: TextAlign.start,
+                  description: "Already have an account ? ",
+                  descriptionword: "Login",
+                  descriptionWordOnTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                    );
+                  },
+                  descriptionAlign: TextAlign.start,
+                  children: [
+                    Form(
+                      key: formkey,
+                      child: Column(
+                        children: [
+                          // حقل الاسم الكامل
+                          CustomTextFelidWidget(
+                            controller: nameController,
+                            label: "Full Name",
+                            hintText: "Your Name",
+                            type: TextInputType.text,
+                            obscure: false,
+                            validator: (value) {
+                              signUpCubit.validateField(
+                                field: 'name',
+                                value: value ?? "",
+                              );
+                              return null;
+                            },
+                            errorText: fieldErrors['name'] ?? "",
+                          ),
+
+                          // حقل البريد الإلكتروني
+                          CustomTextFelidWidget(
+                            controller: emailController,
+                            label: "Email",
+                            hintText: "example@email.com",
+                            type: TextInputType.emailAddress,
+                            obscure: false,
+                            validator: (value) {
+                              signUpCubit.validateField(
+                                field: 'email',
+                                value: value ?? "",
+                              );
+                              return null;
+                            },
+                            errorText: fieldErrors['email'] ?? "",
+                          ),
+
+                          // حقل تاريخ الميلاد
+                          CustomTextFelidWidget(
+                            controller: dateController,
+                            label: "Birth of date",
+                            hintText: "DD/MM/YYYY",
+                            type: TextInputType.datetime,
+                            obscure: false,
+                            validator: (value) {
+                              signUpCubit.validateField(
+                                field: 'date',
+                                value: value ?? "",
+                              );
+                              return null;
+                            },
+                            errorText: fieldErrors['date'] ?? "",
+                          ),
+
+                          // حقل رقم الهاتف
+                          CustomTextFelidWidget(
+                            controller: phoneController,
+                            label: "Phone",
+                            hintText: "0770000000",
+                            type: TextInputType.number,
+                            obscure: false,
+                            validator: (value) {
+                              signUpCubit.validateField(
+                                field: 'phone',
+                                value: value ?? "",
+                              );
+                              return null;
+                            },
+                            errorText: fieldErrors['phone'] ?? "",
+                          ),
+
+                          // حقل كلمة المرور
+                          CustomTextFelidWidget(
+                            controller: passwordController,
+                            label: "Set Password",
+                            hintText: '*******',
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                obscurePassword
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined,
+                                color: Colors.grey,
+                              ),
                               onPressed: () {
-                                if (formkey.currentState!.validate()) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder:
-                                          (context) => OtpScreen(
-                                            onPressed: () {
-                                              Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder:
-                                                      (context) =>
-                                                          LoginScreen(),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                    ),
-                                  );
-                                }
-                                // if (state is SignUpError) {
-                                //   texterror = state.message;
-                                // } else if (state is SignUpSuccess) {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder:
-                                //           (context) => OtpScreen(
-                                //             onPressed: () {
-                                //               Navigator.pushReplacement(
-                                //                 context,
-                                //                 MaterialPageRoute(
-                                //                   builder:
-                                //                       (context) =>
-                                //                           LoginScreen(),
-                                //                 ),
-                                //               );
-                                //             },
-                                //           ),
-                                //     ),
-                                //   );
-                                // }
+                                signUpCubit.togglePasswordVisibility();
                               },
                             ),
-                          ],
-                        ),
-                      ],
+                            type: TextInputType.text,
+                            obscure: obscurePassword,
+                            validator: (value) {
+                              signUpCubit.validateField(
+                                field: 'password',
+                                value: value ?? "",
+                              );
+                              return null;
+                            },
+                            errorText: fieldErrors['password'] ?? "",
+                          ),
+                        ],
+                      ),
                     ),
-              ),
+
+                    const SizedBox(height: 24),
+                    FoodtekButton(
+                      text:
+                          state is SignUpLoading ? "Processing..." : "Register",
+                      onPressed:
+                          state is SignUpLoading
+                              ? null // تعطيل الزر أثناء التحميل
+                              : () {
+                                // إعادة التحقق من جميع الحقول مرة واحدة
+                                signUpCubit.registerUser(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  date: dateController.text,
+                                  phone: phoneController.text,
+                                  password: passwordController.text,
+                                );
+                              },
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

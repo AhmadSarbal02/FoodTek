@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
@@ -103,8 +105,8 @@ class ResetPasswordView extends StatelessWidget {
                     backTo: '',
                     login: '',
                     page: '',
-                    descriptionword: '',// this was the problem
-                    descriptionWordOnTap: null,// or this
+                    descriptionword: '', // this was the problem
+                    descriptionWordOnTap: null, // or this
                     arrowIcon: true,
                     children: [
                       Column(

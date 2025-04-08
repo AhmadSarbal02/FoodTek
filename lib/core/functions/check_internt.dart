@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 Future<bool> isInternetAvailable() async {

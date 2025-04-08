@@ -1,11 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 import 'package:image_picker/image_picker.dart';
+
 import '../../../widgets/auth/custom_text_felid_widget.dart';
-import '../../../widgets/main_page_widgets/round_textfield.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});
@@ -29,9 +31,12 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         title: Text(
           "Profile",
           style: TextStyle(

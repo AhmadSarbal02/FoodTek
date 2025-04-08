@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/main_screens/cart/cart_screen.dart';
-import 'package:foodtek/view/widgets/cart/cart_item_widget.dart';
-import 'package:foodtek/view/widgets/cart/empty_cart-widget.dart';
+import 'package:foodtek/view/screen/main_screens/history/history_screen.dart';
 import 'package:foodtek/view/widgets/main_page_widgets/location_notification_srearch.dart';
 
 class MainCartPage extends StatefulWidget {
-  const MainCartPage({Key? key}) : super(key: key);
+  const MainCartPage({super.key});
 
   @override
   State<MainCartPage> createState() => _CartPageState();
@@ -48,7 +47,7 @@ class _CartPageState extends State<MainCartPage>
             Expanded(
               child: TabBarView(
                 controller: _tabController,
-                children: [CartScreen(), _buildHistoryContent()],
+                children: [CartScreen(), HistoryScreen(locationBar: false)],
               ),
             ),
           ],
@@ -132,13 +131,6 @@ class _CartPageState extends State<MainCartPage>
           const Divider(),
         ],
       ),
-    );
-  }
-
-  Widget _buildHistoryContent() {
-    return EmptyCartwidget(
-      title: 'History Empty',
-      subtitle: "You don't have order any foods before",
     );
   }
 }

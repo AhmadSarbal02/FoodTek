@@ -61,6 +61,7 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: const Color.fromARGB(255, 219, 244, 209),
         shape: const CircularNotchedRectangle(),
         // surfaceTintColor: Colors.white,
         // shadowColor: Colors.black,

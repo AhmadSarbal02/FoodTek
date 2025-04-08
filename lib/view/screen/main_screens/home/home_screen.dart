@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     List<Category> filteredItems = // to filter the items
         selectedCategory == null || selectedCategory == "All"
             ? allItems
@@ -29,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 .toList();
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -71,9 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         margin: EdgeInsets.symmetric(horizontal: 5),
                         decoration: BoxDecoration(
-                          border: Border.all(color:  Colors.green ),
-                          color:
-                              isSelected ? Colors.green[400] : Colors.white,
+                          border: Border.all(color: Colors.green),
+                          color: isSelected ? Colors.green[400] : Colors.white,
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Row(

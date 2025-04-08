@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../widgets/main_page_widgets/location_notification_srearch.dart';
 
 class FilterScreen extends StatefulWidget {
+  const FilterScreen({super.key});
+
   @override
-  _FilterScreenState createState() => _FilterScreenState();
+  FilterScreenState createState() => FilterScreenState();
 }
 
-class _FilterScreenState extends State<FilterScreen> {
+class FilterScreenState extends State<FilterScreen> {
   String _selectedCategory = "All";
 
   List<Map<String, String>> dishes = [
@@ -33,15 +35,15 @@ class _FilterScreenState extends State<FilterScreen> {
     }
   }
 
-  double _minPrice = 0;
-  double _maxPrice = 108;
+  final double _minPrice = 0;
+  final double _maxPrice = 108;
   double _price = 0;
-  double _minDiscount = 0;
-  double _maxDiscount = 100;
+  final double _minDiscount = 0;
+  final double _maxDiscount = 100;
 
   double _discount = 50;
   int _selectedLocation = 0;
-  Set<String> _selectedDishes = {}; // Track selected dishes
+  final Set<String> _selectedDishes = {}; // Track selected dishes
 
   // List<String> categories = ["Fast Food", "Sea Food", "Dessert"];
   List<bool> categorySelected = [false, false, false];

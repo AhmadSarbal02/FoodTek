@@ -85,6 +85,8 @@ import '../../../widgets/main_page_widgets/location_notification_srearch.dart';
 import '../home/item_details_screen.dart';
 
 class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

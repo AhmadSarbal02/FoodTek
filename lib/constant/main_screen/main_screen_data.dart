@@ -5,7 +5,6 @@ import '../../view/screen/main_screens/favorites/favorites_screen.dart';
 import '../../view/screen/main_screens/history/history_screen.dart';
 import '../../view/screen/main_screens/home/home_screen.dart';
 import '../../view/screen/main_screens/profile/main_profile_screen.dart';
-import '../../view/screen/main_screens/profile/profile_screen.dart';
 
 final List<String> bottomNavLabels = [
   "Home",
@@ -25,8 +24,8 @@ final List<String> bottomNavImages = [
 ];
 final List<Widget> pages = [
   const HomeScreen(),
-   FavoritesScreen(),
+  FavoritesScreen(),
   const MainCartPage(),
-  const HistoryScreen(),
+  HistoryScreen(locationBar: true),
   const MainProfileScreen(),
 ];
