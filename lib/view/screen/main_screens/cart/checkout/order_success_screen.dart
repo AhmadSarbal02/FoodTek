@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/main_screens/main_page.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 
+import '../../history/order_details_page.dart';
+
 class OrderSuccessScreen extends StatelessWidget {
   const OrderSuccessScreen({super.key});
 
@@ -60,7 +62,7 @@ class OrderSuccessScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
+                  MaterialPageRoute(builder: (context) => OrderDetailsPage()),
                 );
               },
             ),
