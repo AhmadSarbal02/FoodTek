@@ -220,13 +220,18 @@ class CategoryCell extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
+                InkWell(
+                  onTap: () {
+                  print("hi");
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.add, color: Colors.white, size: 20),
                   ),
-                  child: Icon(Icons.add, color: Colors.white, size: 18),
                 ),
               ],
             ),

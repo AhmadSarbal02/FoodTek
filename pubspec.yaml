@@ -46,6 +46,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   equatable: ^2.0.7
   image_picker: ^1.1.2
+  google_maps_flutter: ^2.12.1
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
      - assets/images/mainPage/home_page_images/recommend_images/
      - assets/images/mainPage/home_page_images/top_list_images/
      - assets/images/mainPage/home_page_images/top_rated_list_images/
+     - assets/images/mainPage/location/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

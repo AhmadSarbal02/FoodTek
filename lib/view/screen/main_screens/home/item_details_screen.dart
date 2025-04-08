@@ -83,7 +83,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   final favCubit = context.read<FavoritesCubit>();
 
                   final favoriteItem = FavoriteItem(
-                    id: widget.id.toString(),
+                    id: widget.id,
                     name: widget.name,
                     image: widget.image,
                     price: widget.price,

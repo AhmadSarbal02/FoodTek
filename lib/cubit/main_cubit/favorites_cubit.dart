@@ -101,7 +101,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 class FavoriteItem extends Equatable {
-  final String id;
+  final int id;
   final String name;
   final String image;
   final String price;
