@@ -4,6 +4,7 @@ void openNotificationSheet(BuildContext context) {
   showModalBottomSheet(
     // the bottom sheet
     context: context,
+    backgroundColor: Colors.white,
     isScrollControlled: true, // Makes the bottom sheet more flexible
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/widgets/main_page_widgets/round_textfield.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constant/colors.dart';
@@ -128,7 +129,7 @@ class _LocationNotificationSrearchState
         Visibility(
           visible: widget.showSearchBar,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: RoundTextfield(
               hintText: "Search menu, restaurant or etc",
               controller: txtSearch,
@@ -139,10 +140,16 @@ class _LocationNotificationSrearchState
               ),
               right: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    MaterialPageRoute(builder: (context) => FilterScreen()),
+                    screen:  FilterScreen(),
+                    withNavBar: false, // OPTIONAL VALUE. True by default.
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => FilterScreen()),
+                  // );
                 },
                 icon: Image.asset(
                   'assets/images/mainPage/filterIcon.png',

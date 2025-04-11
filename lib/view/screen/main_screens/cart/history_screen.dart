@@ -3,7 +3,7 @@ import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
 import 'package:foodtek/view/widgets/main_page_widgets/location_notification_srearch.dart';
 
 import '../../../widgets/cart/empty_cart-widget.dart';
-import 'order_details_page.dart';
+import '../history/order_details_page.dart';
 
 class HistoryScreen extends StatelessWidget {
   bool locationBar = true;

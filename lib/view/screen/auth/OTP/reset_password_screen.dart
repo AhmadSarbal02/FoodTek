@@ -6,7 +6,7 @@ import 'package:foodtek/view/screen/auth/login.dart';
 import 'package:foodtek/view/widgets/auth/OTP/custom_auth_card.dart';
 import 'package:foodtek/view/widgets/auth/OTP/reusable_scaffold.dart';
 import '../../../../cubit/auth/reset_password_cubit.dart';
-import '../../../../responseve.dart';
+import '../../../../core/responseve.dart';
 import '../../../../state/auth/reset_password_state.dart';
 import '../../../widgets/auth/custom_foodtek_logo_widget.dart';
 import '../../../widgets/auth/custom_text_felid_widget.dart';

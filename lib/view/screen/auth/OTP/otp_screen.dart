@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/view/screen/auth/OTP/reset_password_screen.dart';
 import 'package:foodtek/view/widgets/auth/OTP/reusable_scaffold.dart';
-import '../../../../responseve.dart';
+import '../../../../core/responseve.dart';
 import '../../../widgets/auth/custom_foodtek_logo_widget.dart';
 import '../../../widgets/auth/OTP/custom_otp_text_field.dart';
 import '../../../widgets/auth/foodtek_button.dart';

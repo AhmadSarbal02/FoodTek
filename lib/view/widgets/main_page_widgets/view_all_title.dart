@@ -6,8 +6,9 @@ import 'package:foodtek/constant/colors.dart';
 class ViewAllTitleRow extends StatelessWidget {
   final String title;
   final VoidCallback onView;
+  final bool vis;
 
-  const ViewAllTitleRow({super.key, required this.title, required this.onView});
+  const ViewAllTitleRow({super.key, required this.title, required this.onView,required this.vis});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +23,17 @@ class ViewAllTitleRow extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
         ),
-        TextButton(
-          onPressed: onView,
-          child: Text(
-            "View all",
-            style: TextStyle(
-              color: AppColors.primaryColor,
-              fontSize: 13,
-              fontWeight: FontWeight.w500,
+        Visibility(
+          visible: vis,
+          child: TextButton(
+            onPressed: onView,
+            child: Text(
+              "View all",
+              style: TextStyle(
+                color: AppColors.primaryColor,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

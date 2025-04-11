@@ -26,6 +26,7 @@ class RoundTextfield extends StatelessWidget {// the search text field
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.black12),
         color: bgColor ?? Colors.white,
         borderRadius: BorderRadius.circular(25),
       ),

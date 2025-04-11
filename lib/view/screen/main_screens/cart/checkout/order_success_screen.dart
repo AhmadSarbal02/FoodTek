@@ -62,7 +62,7 @@ class OrderSuccessScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => OrderDetailsPage()),
+                  MaterialPageRoute(builder: (context) => MainPage()),
                 );
               },
             ),

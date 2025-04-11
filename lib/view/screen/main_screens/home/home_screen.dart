@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../../constant/main_screen/home_screen_data.dart';
 import '../../../../model/category.dart';
 import '../../../widgets/main_page_widgets/category_cell.dart';
@@ -112,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Top Rated
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ViewAllTitleRow(title: "Top Rated", onView: () {}),
+                  child: ViewAllTitleRow(title: "Top Rated", onView: () {}, vis: false,),
                 ),
                 SizedBox(
                   height: 250,
@@ -130,25 +131,43 @@ class _HomeScreenState extends State<HomeScreen> {
                           rating: topRatedItems[index].rating,
                           description: topRatedItems[index].description,
                           onTap: () {
-                            Navigator.push(
+                            PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              MaterialPageRoute(
-                                builder:
-                                    (context) => ItemDetailsScreen(
-                                      name: topRatedItems[index].title,
-                                      image: topRatedItems[index].image,
-                                      price: topRatedItems[index].price,
-                                      // Example price list
-                                      description:
-                                          topRatedItems[index].description,
-                                      // Example description list
-                                      rating: topRatedItems[index].rating,
-                                      id:
-                                          topRatedItems[index]
-                                              .id, // Example ratings list
-                                    ),
+                              screen:  ItemDetailsScreen(
+                                name: topRatedItems[index].title,
+                                image: topRatedItems[index].image,
+                                price: topRatedItems[index].price,
+                                // Example price list
+                                description:
+                                topRatedItems[index].description,
+                                // Example description list
+                                rating: topRatedItems[index].rating,
+                                id:
+                                topRatedItems[index]
+                                    .id, // Example ratings list
                               ),
+                              withNavBar: false, // OPTIONAL VALUE. True by default.
+                              pageTransitionAnimation: PageTransitionAnimation.cupertino,
                             );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder:
+                            //         (context) => ItemDetailsScreen(
+                            //           name: topRatedItems[index].title,
+                            //           image: topRatedItems[index].image,
+                            //           price: topRatedItems[index].price,
+                            //           // Example price list
+                            //           description:
+                            //               topRatedItems[index].description,
+                            //           // Example description list
+                            //           rating: topRatedItems[index].rating,
+                            //           id:
+                            //               topRatedItems[index]
+                            //                   .id, // Example ratings list
+                            //         ),
+                            //   ),
+                            // );
                           },
                         );
                       },
@@ -159,7 +178,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Recommended
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ViewAllTitleRow(title: "Recommended", onView: () {}),
+                  child: ViewAllTitleRow(title: "Recommended", onView: () {}, vis: true,),
                 ),
                 SizedBox(
                   height: 200,
@@ -173,25 +192,43 @@ class _HomeScreenState extends State<HomeScreen> {
                         description: '',
                         cObj: '',
                         onTap: () {
-                          Navigator.push(
+                          PersistentNavBarNavigator.pushNewScreen(
                             context,
-                            MaterialPageRoute(
-                              builder:
-                                  (context) => ItemDetailsScreen(
-                                    name: recommendedItems[index].title,
-                                    image: recommendedItems[index].image,
-                                    price: recommendedItems[index].price,
-                                    // Example price list
-                                    description:
-                                        recommendedItems[index].description,
-                                    // Example description list
-                                    rating: recommendedItems[index].rating,
-                                    id:
-                                        recommendedItems[index]
-                                            .id, // Example ratings list
-                                  ),
+                            screen:  ItemDetailsScreen(
+                              name: recommendedItems[index].title,
+                              image: recommendedItems[index].image,
+                              price: recommendedItems[index].price,
+                              // Example price list
+                              description:
+                              recommendedItems[index].description,
+                              // Example description list
+                              rating: recommendedItems[index].rating,
+                              id:
+                              recommendedItems[index]
+                                  .id, // Example ratings list
                             ),
+                            withNavBar: false, // OPTIONAL VALUE. True by default.
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder:
+                          //         (context) => ItemDetailsScreen(
+                          //           name: recommendedItems[index].title,
+                          //           image: recommendedItems[index].image,
+                          //           price: recommendedItems[index].price,
+                          //           // Example price list
+                          //           description:
+                          //               recommendedItems[index].description,
+                          //           // Example description list
+                          //           rating: recommendedItems[index].rating,
+                          //           id:
+                          //               recommendedItems[index]
+                          //                   .id, // Example ratings list
+                          //         ),
+                          //   ),
+                          // );
                         },
                         image: recommendedItems[index].image,
                       );
@@ -202,17 +239,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Show filtered category items using Flexible
                 Container(
                   height: MediaQuery.of(context).size.height * 0.85,
-                  padding: EdgeInsets.all(16),
-                  child: Flexible(
-                    child: ItemScreen(
-                      categoryItems:
-                          allItems
-                              .where(
-                                (item) =>
-                                    item.title.contains(selectedCategory!),
-                              )
-                              .toList(),
-                    ),
+                  padding: EdgeInsets.only(bottom: 110,top: 10),
+                  child: ItemScreen(
+                    categoryItems:
+                        allItems
+                            .where(
+                              (item) =>
+                                  item.title.contains(selectedCategory!),
+                            )
+                            .toList(),
                   ),
                 ),
               ],

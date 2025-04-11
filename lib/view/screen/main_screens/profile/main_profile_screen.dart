@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/view/screen/main_screens/profile/profile_screen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import '../../../widgets/main_page_widgets/profile_option.dart';
 
 class MainProfileScreen extends StatefulWidget {
@@ -94,12 +95,18 @@ class _MainProfileScreen extends State<MainProfileScreen> {
                         "Personal Information",
                         leading: Icon(Icons.person_add_alt_1),
                         onTap: () {
-                          Navigator.push(
+                          PersistentNavBarNavigator.pushNewScreen(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => ProfileView(),
-                            ),
+                            screen:  ProfileView(),
+                            withNavBar: false, // OPTIONAL VALUE. True by default.
+                            pageTransitionAnimation: PageTransitionAnimation.cupertino,
                           );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => ProfileView(),
+                          //   ),
+                          // );
                         },
                       ),
                       ProfileOption(

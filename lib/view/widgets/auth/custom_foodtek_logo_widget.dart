@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodtek/responseve.dart';
+import 'package:foodtek/core/responseve.dart';
 
 class CustomFoodtekLogoWidget extends StatelessWidget {
   const CustomFoodtekLogoWidget({super.key});

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 
-import 'package:foodtek/responseve.dart';
+import 'package:foodtek/core/responseve.dart';
 import 'package:foodtek/view/screen/auth/login.dart';
 
 class CustomAuthCard extends StatelessWidget {

@@ -30,7 +30,7 @@ class ItemDetailsScreen extends StatefulWidget {
 
 class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   bool isFav = false;
-  int qty = 1;
+  int qty = 0;
   late double currentRating; // Create a separate variable for rating
 
   double minSpicy = 0;
@@ -53,7 +53,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 15),
-            LocationNotificationSrearch(showSearchBar: false),
+            LocationNotificationSrearch(showSearchBar: true),
             SizedBox(height: 15),
 
             // Image
@@ -78,32 +78,32 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                     widget.name,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
                   ),
-              BlocBuilder<FavoritesCubit, FavoritesState>(
-                builder: (context, state) {
-                  final favCubit = context.read<FavoritesCubit>();
-
-                  final favoriteItem = FavoriteItem(
-                    id: widget.id,
-                    name: widget.name,
-                    image: widget.image,
-                    price: widget.price,
-                    description: widget.description,
-                    rating: widget.rating,
-                  );
-
-                  final isFav = favCubit.isFavorite(favoriteItem);
-
-                  return IconButton(
-                    icon: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-                    onPressed: () {
-                      favCubit.toggleFavorite(favoriteItem);
-                    },
-                  );
-                },
-              )
+              // BlocBuilder<FavoritesCubit, FavoritesState>(
+              //   builder: (context, state) {
+              //     final favCubit = context.read<FavoritesCubit>();
+              //
+              //     final favoriteItem = FavoriteItem(
+              //       id: widget.id,
+              //       name: widget.name,
+              //       image: widget.image,
+              //       price: widget.price,
+              //       description: widget.description,
+              //       rating: widget.rating,
+              //     );
+              //
+              //     final isFav = favCubit.isFavorite(favoriteItem);
+              //
+              //     return IconButton(
+              //       icon: Icon(
+              //         isFav ? Icons.favorite : Icons.favorite_border,
+              //         color: Colors.red,
+              //       ),
+              //       onPressed: () {
+              //         favCubit.toggleFavorite(favoriteItem);
+              //       },
+              //     );
+              //   },
+              // )
 
               ],
               ),
@@ -183,13 +183,13 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                                 value: spicy,
                                 min: minSpicy,
                                 max: maxSpicy,
-                                divisions: 9,
+                                //divisions: 9,
                                 activeColor: Colors.red,
                                 inactiveColor: Colors.grey[300],
                                 onChanged: (value) {
                                   setState(() {
                                     spicy = value;
-                                    qty = value.toInt();
+                                    qty = value.round();
                                   });
                                 },
                               ),
@@ -209,10 +209,11 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                         children: [
                           IconButton(
                             onPressed: () {
-                              if (qty > minSpicy) {
+                              if (qty > minSpicy.toInt()) {
                                 setState(() {
                                   qty--;
-                                  spicy -= (maxSpicy - minSpicy) / 9;
+                                  spicy = qty.toDouble();
+                                 // spicy -= (maxSpicy - minSpicy) / 9;
                                 });
                               }
                             },
@@ -223,16 +224,19 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                           ),
+                          SizedBox(width: 5,),
                           Text(
                             qty.toString(),
                             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(width: 5,),
                           IconButton(
                             onPressed: () {
-                              if (qty < maxSpicy) {
+                              if (qty < maxSpicy.toInt()) {
                                 setState(() {
                                   qty++;
-                                  spicy += (maxSpicy - minSpicy) / 9;
+                                  spicy = qty.toDouble();
+                                  //spicy += (maxSpicy - minSpicy) / 9;
                                 });
                               }
                             },
@@ -252,7 +256,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
             const SizedBox(height: 35),
             // Add to Cart Button
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
               child: FoodtekButton(
                 text: "Add to Cart",
                 onPressed: () {
@@ -260,7 +264,6 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 },
               ),
             ),
-            SizedBox(height: 30),
           ],
         ),
       ),

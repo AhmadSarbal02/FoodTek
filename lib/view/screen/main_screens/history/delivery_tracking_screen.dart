@@ -14,8 +14,7 @@ class DeliveryTrackingScreen extends StatefulWidget {
 }
 
 class _DeliveryTrackingScreenState extends State<DeliveryTrackingScreen> {
-  String?
-  address; // for the address it is currently being saved in  SharedPreferences
+  String? address; // for the address it is currently being saved in  SharedPreferences
 
   @override
   void initState() {

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodtek/constant/colors.dart';
 import 'package:foodtek/view/screen/main_screens/history/chat.dart';
-import 'package:foodtek/view/screen/main_screens/history/traking_with_no_map.dart';
+import 'package:foodtek/view/screen/main_screens/history/delivery_tracking_screen.dart';
 import 'package:foodtek/view/widgets/auth/foodtek_button.dart';
+import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 
 class OrderDetailsPage extends StatelessWidget {
   const OrderDetailsPage({super.key});
@@ -37,12 +38,12 @@ class OrderDetailsPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.arrow_back),
-                ),
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                //   icon: Icon(Icons.arrow_back),
+                // ),
                 const Text(
                   "Order Details",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -131,10 +132,16 @@ class OrderDetailsPage extends StatelessWidget {
                 const SizedBox(width: 16),
                 IconButton(
                   onPressed: () {
-                    Navigator.push(
+                    PersistentNavBarNavigator.pushNewScreen(
                       context,
-                      MaterialPageRoute(builder: (context) => ChatPage()),
+                      screen:  ChatPage(),
+                      withNavBar: false, // OPTIONAL VALUE. True by default.
+                      pageTransitionAnimation: PageTransitionAnimation.cupertino,
                     );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => ChatPage()),
+                    // );
                   },
                   icon: Icon(Icons.message, color: Colors.orange),
                 ),
@@ -160,12 +167,18 @@ class OrderDetailsPage extends StatelessWidget {
               child: FoodtekButton(
                 text: "Live Track",
                 onPressed: () {
-                  Navigator.push(
+                  PersistentNavBarNavigator.pushNewScreen(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => DeliveryTrackingScreen(),
-                    ),
+                    screen:  DeliveryTrackingScreen(),
+                    withNavBar: false, // OPTIONAL VALUE. True by default.
+                    pageTransitionAnimation: PageTransitionAnimation.cupertino,
                   );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => DeliveryTrackingScreen(),
+                  //   ),
+                  // );
                 },
               ),
             ),
